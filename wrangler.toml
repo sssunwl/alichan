@@ -11,3 +11,6 @@ directory = "./public"
 # P0 預覽站:全站 noindex。正式上線(P1)改 "false"
 PREVIEW = "true"
 SITE_URL = "https://alichan.sssuni.com"
+# /cms/dev 開發中工具只俾呢啲電郵（Access app「alichan-dev」同步設定）
+DEV_EMAILS = "sssunjp@gmail.com"
+# GEMINI_API_KEY 用 wrangler secret put，唔好寫喺度

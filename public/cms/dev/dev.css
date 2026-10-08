@@ -1,0 +1,44 @@
+/* /cms/dev 開發中工具共用 */
+.dev-flag { display: inline-block; font: 700 0.75rem/1.5 var(--mono); background: var(--ink); color: var(--marker); padding: 6px 12px; border-radius: 999px; margin: 24px 0 14px; }
+.dev-index, .ps { padding-bottom: 80px; }
+.dev-index h1, .ps h1 { line-height: 1.15; letter-spacing: -0.005em; margin-bottom: 10px; }
+.ps-lead { color: var(--ink-2); max-width: 720px; }
+.dev-cards { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; margin: 24px 0; }
+.dev-cards a { display: grid; gap: 6px; padding: 22px; border-radius: var(--r); background: var(--card); border: 1px solid var(--line); color: var(--ink); text-decoration: none; box-shadow: var(--shadow); }
+.dev-cards a:hover { border-color: var(--ink); }
+.dev-cards span { font: 700 0.8rem/1 var(--mono); color: var(--accent); }
+.dev-cards strong { font-size: 1.2rem; }
+.dev-cards p { margin: 0; color: var(--ink-2); font-size: 0.95rem; line-height: 1.7; }
+.ps-step { margin-top: 34px; }
+.ps-step h2 { display: flex; align-items: center; gap: 10px; font-size: 1.25rem; margin-bottom: 14px; }
+.ps-step h2 span { font: 700 0.85rem/1 var(--mono); background: var(--accent); color: #fff; width: 28px; height: 28px; display: grid; place-items: center; border-radius: 8px; }
+.ps-samples { display: flex; gap: 12px; overflow-x: auto; padding-bottom: 6px; }
+.ps-samples button { flex: 0 0 180px; display: grid; gap: 6px; padding: 8px; border-radius: 14px; border: 2px solid var(--line); background: var(--card); text-align: left; font: 700 0.9rem/1.4 var(--sans); color: var(--ink); cursor: pointer; }
+.ps-samples button[aria-pressed='true'] { border-color: var(--accent); }
+.ps-samples img { width: 100%; height: auto; border-radius: 8px; aspect-ratio: 16/9; object-fit: cover; }
+.ps form { display: grid; gap: 14px; max-width: 760px; }
+.ps label { display: grid; gap: 6px; font-weight: 700; font-size: 0.9rem; }
+.ps input:not([type=checkbox]):not([type=file]), .ps textarea { font: 400 0.95rem/1.6 var(--sans); padding: 10px 12px; border-radius: 10px; border: 1px solid var(--line); background: var(--card); color: var(--ink); width: 100%; }
+.ps-row { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+.ps fieldset { border: 1px dashed var(--line); border-radius: 12px; padding: 10px 14px; }
+.ps legend { font-weight: 700; font-size: 0.85rem; padding: 0 6px; }
+.ps .ps-check { display: flex; gap: 8px; align-items: flex-start; font-weight: 400; font-size: 0.85rem; }
+.ps-file { align-self: start; }
+.ps-status { color: var(--accent-ink); font-weight: 700; margin: 0; }
+.ps form .btn { justify-self: start; }
+.ps-out { margin-top: 40px; display: grid; gap: 14px; max-width: 860px; scroll-margin-top: 16px; }
+.ps-label { margin: 0; }
+.ps-label small { color: var(--muted); font-family: var(--mono); margin-left: 8px; }
+.ps-checkbox { background: var(--marker); border-radius: var(--r); padding: 14px 18px; }
+.ps-checkbox ul { margin: 6px 0 0; padding-left: 1.2em; font-size: 0.9rem; line-height: 1.7; }
+.ps-card { background: var(--card); border: 1px solid var(--line); border-radius: var(--r); padding: 16px; }
+.ps-card header { display: flex; align-items: baseline; gap: 10px; flex-wrap: wrap; margin-bottom: 10px; }
+.ps-card header strong { font-size: 1.05rem; }
+.ps-card header small { color: var(--muted); font-size: 0.8rem; }
+.ps-card .ps-count { margin-left: auto; font-family: var(--mono); }
+.ps-card textarea { min-height: 120px; resize: vertical; white-space: pre-wrap; }
+.ps-copy { border: 1px solid var(--ink); background: var(--ink); color: var(--paper); border-radius: 999px; padding: 4px 12px; font: 700 0.8rem/1.4 var(--sans); cursor: pointer; }
+.ps-titles { margin: 0; padding-left: 1.4em; display: grid; gap: 10px; }
+.ps-titles li { line-height: 1.6; }
+.ps-titles li span { margin-right: 8px; }
+@media (max-width: 560px) { .dev-cards, .ps-row { grid-template-columns: 1fr; } .ps-card .ps-count { margin-left: 0; } }

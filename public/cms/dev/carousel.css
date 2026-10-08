@@ -1,0 +1,99 @@
+.cs-studio{--paper:#f6f1e7;--paper2:#ede5d5;--card:#fffdf8;--ink:#1c1917;--ink2:#44403c;--muted:#78716c;--line:#ddd3c2;--red:#df4a2e;--deep:#b5371d;--yellow:#ffd84d;color:var(--ink);background:var(--paper);font-family:'Outfit','Noto Sans TC',sans-serif;max-width:1200px;margin:auto;padding:24px 20px 140px}.cs-studio *,.cs-export-stage *{box-sizing:border-box}.cs-studio button,.cs-studio input{font:inherit}.cs-studio button{cursor:pointer}.cs-header h1{font-size:28px;margin:16px 0 8px}.cs-header h1 small{display:block;font-size:14px;color:var(--muted);margin-top:5px}.cs-header p{font-size:14px;line-height:1.8;color:var(--ink2)}.cs-badge{font-size:12px;border:1px dashed var(--red);border-radius:6px;padding:5px 9px;color:var(--deep)}.cs-studio h2{font-size:17px;margin:24px 0 12px}.cs-studio h2 small{font-size:12px;font-weight:400;color:var(--muted);display:block;margin-top:5px}.cs-guides{display:flex;gap:12px;overflow-x:auto;padding:2px 0 10px;scroll-snap-type:x proximity}.cs-guides button{flex:0 0 260px;display:flex;align-items:center;gap:12px;text-align:left;background:var(--card);border:2px solid var(--line);border-radius:12px;padding:10px;scroll-snap-align:start;font-size:13px;line-height:1.6;color:var(--ink)}.cs-guides img{width:84px;height:64px;object-fit:cover;border-radius:6px}.cs-guides button[aria-pressed=true],.cs-styles button[aria-pressed=true]{border-color:var(--red);box-shadow:0 0 0 1px var(--red)}.cs-styles{display:flex;gap:7px}.cs-styles button{display:flex;align-items:center;justify-content:center;gap:5px;padding:10px 7px;border:1px solid var(--line);border-radius:999px;background:var(--card);color:var(--ink);font-size:13px;white-space:nowrap;flex:1;max-width:140px}.cs-swatch{width:12px;height:12px;border-radius:3px;background:var(--paper2)}.cs-swatch-scrapbook{background:var(--yellow)}.cs-swatch-bold{background:var(--ink)}.cs-swatch-route{background:var(--red)}.cs-keyword{display:flex;align-items:center;gap:12px;font-size:14px;margin-top:22px}.cs-keyword input{min-width:0;width:180px;max-width:65%;padding:10px 12px;border:1px solid var(--line);border-radius:8px;background:var(--card);color:var(--ink)}.cs-preview{display:flex;gap:16px;overflow-x:auto;scroll-snap-type:x mandatory;padding:8px 0 18px;align-items:flex-start}
+.cs-style-bold{background:#1c1917;color:white;padding:70px 64px 138px}.cs-style-bold .cs-paper{position:static}.cs-style-bold .cs-photo{position:absolute;inset:0;width:100%;height:100%;z-index:-2}.cs-style-bold:after{content:'';position:absolute;inset:0;background:linear-gradient(180deg,#0001 0%,#0003 30%,#000e 53%,#000 100%);z-index:-1;pointer-events:none}.cs-style-bold .cs-photo .cs-ui{top:90px;bottom:auto}.cs-style-bold .cs-copy{position:absolute;top:720px;left:64px;right:64px;bottom:142px;padding:0}.cs-style-bold h3{font-size:72px;color:white;line-height:1.12;text-decoration:underline;text-decoration-color:#ffd84d;text-decoration-thickness:12px;text-underline-offset:6px}.cs-style-bold.cs-kind-cover h3{font-size:110px}.cs-style-bold .cs-kicker{color:#ffd84d;font-size:24px;margin-bottom:18px}.cs-style-bold .cs-body{font-size:40px;line-height:1.5}.cs-style-bold .cs-items{gap:16px}.cs-style-bold .cs-item{font-size:30px;line-height:1.4}.cs-style-bold .cs-item strong{font-size:28px;color:#f6f1e7;line-height:1.45}.cs-style-bold .cs-time{position:absolute;right:0;top:0;margin:0;font-size:22px;color:#ffd84d}.cs-style-bold .cs-point-number{display:block;position:absolute;top:80px;left:64px;color:#df4a2e;font:800 220px 'Outfit',sans-serif}.cs-style-bold.cs-kind-facts .cs-item{padding:5px 0}.cs-style-bold.cs-kind-facts h3,.cs-style-bold.cs-kind-faq h3,.cs-style-bold.cs-kind-tldr h3{font-size:58px}
+.cs-bottom{position:fixed;z-index:20;bottom:0;left:0;right:0;display:flex;flex-direction:column;align-items:center;gap:7px;padding:12px 20px calc(12px + env(safe-area-inset-bottom));background:#fffdf8f5;border-top:1px solid #ddd3c2;backdrop-filter:blur(12px);font-family:'Outfit','Noto Sans TC',sans-serif}.cs-download{width:100%;max-width:600px;min-height:48px;background:#df4a2e;color:#fffdf8;border:0;border-radius:10px;font-weight:700}.cs-download:disabled{opacity:.5;cursor:wait}.cs-status{font-size:12px;color:#44403c;min-height:16px}.cs-export-stage{position:fixed;left:-20000px;top:0;width:1080px;height:1440px;--cs-scale:1}.cs-export-stage .cs-slide{transform:none!important;width:1080px!important;height:1440px!important;opacity:1!important}.cs-export-stage .cs-photo{pointer-events:none}.cs-export-stage .cs-slide{--paper:#f6f1e7;--card:#fffdf8}.cs-studio button:focus-visible,.cs-studio input:focus-visible{outline:3px solid #df4a2e;outline-offset:3px}
+/* Preview controls live outside the scaled artwork. */
+.cs-preview-card{--cs-scale:.2777777778;position:relative;flex:0 0 300px;width:300px;scroll-snap-align:center}
+.cs-slide-window{width:100%;aspect-ratio:3/4;overflow:hidden;border-radius:8px;box-shadow:0 5px 16px #1c191714}
+.cs-toolbar{display:flex;justify-content:flex-end;gap:8px;padding-top:10px}
+.cs-toolbar button{position:static;padding:8px 12px;border:1px solid #ddd3c2;border-radius:999px;background:#fffdf8;color:#44403c;font-size:12px;min-height:36px}
+.cs-hidden .cs-slide{opacity:.35}
+.cs-slide{position:relative;width:1080px;height:1440px;overflow:hidden;background:#f6f1e7;color:#1c1917;font-family:'Outfit','Noto Sans TC',sans-serif;transform:scale(var(--cs-scale));transform-origin:top left;padding:54px 60px 138px;isolation:isolate}
+.cs-slide *{box-sizing:border-box}
+.cs-paper{position:relative;height:100%;display:flex;flex-direction:column;gap:28px}
+.cs-photo{position:relative;display:block;padding:0;border:0;background:#ede5d5;flex-shrink:0;width:960px;height:540px;overflow:hidden;cursor:pointer}
+.cs-photo img{width:100%;height:100%;object-fit:cover;display:block}
+.cs-copy{position:relative;display:flex;flex-direction:column;justify-content:space-between;flex:1;min-height:0;overflow:hidden;padding-top:0;gap:18px}
+.cs-copy>*,.cs-item>*{flex-shrink:0}
+.cs-kicker{display:inline-block;align-self:flex-start;font:700 30px 'JetBrains Mono',monospace;max-width:100%;overflow-wrap:anywhere;color:#b5371d;margin:0}
+.cs-slide h3{font-size:76px;line-height:1.2;letter-spacing:0;margin:0;font-weight:900;overflow-wrap:anywhere}
+.cs-body{font-size:46px;line-height:1.5;margin:0;white-space:pre-wrap;overflow-wrap:anywhere}
+.cs-items{display:flex;flex-direction:column;justify-content:space-between;gap:20px;flex:1;min-height:min-content}
+.cs-items:empty{display:none}
+.cs-item{font-size:40px;line-height:1.5;overflow-wrap:anywhere;min-width:0;flex-shrink:0}
+.cs-item strong{display:block;font-size:40px;font-weight:500;margin-top:8px;color:#44403c;line-height:1.5}
+.cs-time{display:inline-block;align-self:flex-start;padding:10px 16px;border:2px dashed #ddd3c2;font:500 28px 'JetBrains Mono',monospace}
+.cs-slide footer{position:absolute;left:60px;right:60px;bottom:38px;display:flex;justify-content:space-between;align-items:center;font:500 26px 'JetBrains Mono',monospace;height:72px}
+.cs-signature{display:flex;align-items:center;gap:18px}
+.cs-signature img{width:72px;height:72px;object-fit:cover;border-radius:50%}
+.cs-point-number,.cs-stamp,.cs-route-end{display:none}
+.cs-slide [contenteditable]{outline:none}
+.cs-slide [contenteditable]:focus{outline:3px dashed #df4a2e;outline-offset:5px}
+.cs-slide:not(.cs-style-bold).cs-kind-cover h3{font-size:104px;line-height:1.2}
+.cs-slide:not(.cs-style-bold).cs-kind-cta h3{font-size:140px;line-height:1.15}
+.cs-slide:not(.cs-style-bold).cs-kind-cover .cs-copy,.cs-slide:not(.cs-style-bold).cs-kind-cta .cs-copy{justify-content:center;gap:36px}
+.cs-slide:not(.cs-style-bold).cs-kind-point .cs-copy{justify-content:space-between}
+/* The photo is separate from the receipt, leaving the card all remaining height. */
+.cs-style-receipt .cs-photo{box-shadow:0 10px 20px #1c19171c;transform:rotate(-.6deg);overflow:visible}
+.cs-style-receipt .cs-photo:after,.cs-style-scrapbook .cs-photo:after{content:'';position:absolute;top:-16px;left:40%;width:180px;height:48px;background:#ffd84d99;transform:rotate(3deg)}
+.cs-style-receipt .cs-copy{background:#fffdf8;padding:28px 36px 40px;filter:drop-shadow(0 10px 10px #1c191711);border-top:3px dashed #ddd3c2;overflow:visible}
+.cs-style-receipt .cs-paper:after{content:'';position:absolute;bottom:-14px;left:0;right:0;height:28px;background:radial-gradient(circle at 14px 28px,transparent 13px,#fffdf8 14px) 0 0/28px 28px repeat-x}
+.cs-style-receipt .cs-stamp{display:flex;position:absolute;right:18px;top:420px;transform:rotate(12deg);border:5px double #df4a2e;color:#df4a2e;border-radius:50%;width:130px;height:130px;font-size:24px;font-weight:700;align-items:center;justify-content:center;background:#fffdf8e8;pointer-events:none}
+.cs-style-receipt.cs-kind-facts .cs-items{gap:8px}
+.cs-style-receipt.cs-kind-facts .cs-item{display:flex;align-items:baseline;justify-content:space-between;gap:20px;padding:8px 0;border-bottom:2px dashed #ddd3c2}
+.cs-style-receipt.cs-kind-facts .cs-item>span{flex:0 0 24%}
+.cs-style-receipt.cs-kind-facts .cs-item strong{flex:1;text-align:right;font-family:'JetBrains Mono','Noto Sans TC',monospace;margin:0}
+.cs-style-receipt.cs-kind-facts .cs-total{border-top:5px double #78716c;border-bottom:0;position:relative;padding-top:18px;font-size:52px;font-weight:900}
+.cs-style-receipt.cs-kind-facts .cs-total strong{font-size:52px;font-weight:700}
+.cs-style-receipt.cs-kind-facts .cs-total:before{content:"";position:absolute;left:0;right:0;top:-5px;height:5px;border-top:2px dashed #78716c;border-bottom:2px dashed #78716c;background:#fffdf8}
+/* 900px Polaroid: 852 × 479.25 photo with 24px sides and 80px caption edge. */
+.cs-style-scrapbook .cs-photo{width:900px;height:583.25px;align-self:center;border:24px solid #fffdf8;border-bottom-width:80px;transform:rotate(-2deg);box-shadow:0 15px 26px #1c19171a;overflow:visible}
+.cs-style-scrapbook .cs-photo:after{top:-40px;height:60px}
+.cs-style-scrapbook .cs-paper{gap:12px}
+.cs-style-scrapbook h3{text-decoration:underline;text-decoration-color:#ffd84d;text-decoration-thickness:20px;text-underline-offset:-8px;text-decoration-skip-ink:none}
+.cs-style-scrapbook .cs-kicker{border:3px dashed #78716c;border-radius:12px;padding:8px 14px;transform:rotate(2deg)}
+.cs-style-scrapbook .cs-item{position:relative;padding-left:38px}
+.cs-style-scrapbook .cs-item:before{content:'';position:absolute;left:0;top:22px;width:17px;height:13px;border-radius:45% 60% 40% 55%;background:#df4a2e;transform:rotate(-12deg)}
+/* Each route item owns a station; the dashed line runs behind all stations. */
+.cs-style-route .cs-photo{width:400px;height:400px;border-radius:40px;align-self:flex-end;border:12px solid #fffdf8;box-shadow:0 8px 0 #ddd3c2}
+.cs-style-route .cs-copy{padding-left:68px;margin-left:18px;overflow:visible}
+.cs-style-route .cs-items{position:relative;padding-left:50px;border-left:4px dashed #df4a2e;margin-left:14px;gap:24px}
+.cs-style-route .cs-item{position:relative;padding-bottom:14px}
+.cs-style-route .cs-item:before{content:'';position:absolute;left:-66px;top:16px;width:28px;height:28px;border:5px solid #df4a2e;border-radius:50%;background:#f6f1e7}
+.cs-style-route .cs-time{background:#fffdf8;border-color:#df4a2e;transform:rotate(-3deg)}
+.cs-style-route.cs-kind-point .cs-copy{border-left:5px dashed #df4a2e;padding-left:65px;margin-left:24px}
+.cs-style-route.cs-kind-point h3:before{content:'';position:absolute;left:-26px;top:76px;width:48px;height:48px;background:#f6f1e7;border:9px solid #df4a2e;border-radius:50%}
+.cs-style-route.cs-kind-cover .cs-copy{border-left:5px dashed #df4a2e;justify-content:space-between;padding-left:65px;margin-left:24px;padding-top:10px;padding-bottom:94px}
+.cs-style-route.cs-kind-cover .cs-kicker:before{content:'';position:absolute;left:-19px;top:14px;width:32px;height:32px;background:#f6f1e7;border:6px solid #df4a2e;border-radius:50%}
+.cs-style-route.cs-kind-cover .cs-route-end{display:block;position:absolute;left:90px;bottom:0;font-size:38px;font-weight:700}
+.cs-style-route.cs-kind-cover .cs-route-end:before{content:'';position:absolute;left:-80px;top:8px;width:32px;height:32px;background:#df4a2e;border:6px solid #df4a2e;border-radius:50%}
+/* Keep the full-bleed design's existing sizing and composition. */
+.cs-style-bold{background:#1c1917;color:white;padding:70px 64px 138px}
+.cs-style-bold .cs-paper{position:static;gap:0}
+.cs-style-bold .cs-photo{position:absolute;inset:0;width:100%;height:100%;z-index:-2}
+.cs-style-bold .cs-copy{display:block;position:absolute;top:720px;left:64px;right:64px;bottom:142px;padding:0}
+.cs-style-bold h3{font-size:72px;line-height:1.12;margin:0 0 30px}
+.cs-style-bold.cs-kind-cover h3{font-size:110px}
+.cs-style-bold.cs-kind-cta h3{font-size:88px}
+.cs-style-bold.cs-kind-cta .cs-copy{display:flex;flex-direction:column;justify-content:center}
+.cs-style-bold .cs-kicker{font-size:24px;margin-bottom:18px}
+.cs-style-bold .cs-body{font-size:40px}
+.cs-style-bold.cs-kind-point .cs-body{font-size:46px}
+.cs-style-bold .cs-items{gap:16px;justify-content:flex-start}
+.cs-style-bold .cs-item{font-size:30px;line-height:1.4}
+.cs-style-bold .cs-item strong{font-size:28px;line-height:1.45}
+.cs-style-bold .cs-time{position:absolute;right:0;top:0;margin:0;font-size:22px}
+.cs-style-bold .cs-point-number{display:block}
+.cs-style-bold.cs-kind-facts .cs-item{display:flex;justify-content:space-between;gap:22px;padding:5px 0;border-bottom:2px dashed #ddd3c2}
+.cs-style-bold.cs-kind-facts .cs-item>span{flex:0 0 26%}
+.cs-style-bold.cs-kind-facts .cs-item strong{flex:1;text-align:right;margin:0;font-family:'JetBrains Mono','Noto Sans TC',monospace}
+@media(max-width:400px){.cs-studio{padding-left:16px;padding-right:16px}.cs-styles{gap:5px}.cs-styles button{font-size:12px;padding:10px 5px}.cs-preview-card{flex-basis:min(300px,calc(100vw - 32px));width:min(300px,calc(100vw - 32px))}}
+@media(prefers-reduced-motion:reduce){.cs-preview{scroll-behavior:auto}}
+
+/* 手帳／路線版位冇收據咁密：facts 只顯示頭 4 項 + 總計，提示睇全文（帳單款照出全部） */
+.cs-style-scrapbook.cs-kind-facts .cs-item:nth-child(n+5):not(.cs-total),
+.cs-style-route.cs-kind-facts .cs-item:nth-child(n+5):not(.cs-total) { display: none; }
+.cs-style-scrapbook.cs-kind-facts .cs-items::after,
+.cs-style-route.cs-kind-facts .cs-items::after { content: '完整帳單喺網站'; display: block; font: 700 26px 'JetBrains Mono', monospace; color: #78716c; margin-top: 10px; }
+/* facts 張字多：手帳／路線收起相片，讓位俾數字 */
+.cs-style-scrapbook.cs-kind-facts .cs-photo,
+.cs-style-route.cs-kind-facts .cs-photo { display: none; }

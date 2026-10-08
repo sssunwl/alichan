@@ -10,4 +10,5 @@
 - 結構:Hono SSR Worker(`src/index.tsx`),KOL 資料集中 `src/site.config.ts`,文章 `src/content/guides.ts`。本機:workspace launch.json 嘅 `alichan`(port 8791);部署 `npx wrangler deploy`
 - 2026-10-08 加咗 `/cms`(SS↔阿陳溝通位,nav 半透明 CMS 掣;內容 `src/cms/page.tsx`,示意元件 `src/cms/demos.tsx`)同文章內「情境優惠碼」(`inlineAffiliates`)。Google 實測:阿陳影片欄有排名,但文字答案位係中介/旅遊網;自駕篇完全搵唔到
 - /cms 已上 Cloudflare Access(policy AliSS:ching829520@gmail.com + sssunjp@gmail.com);CMS 入口喺 footer。品牌頁有 IG Reels 3D 輪播(`src/ig-reels.tsx`,資料 `site.config.ts` reels)。阿陳 IG 6.48 萬、最高 Reel 430 萬觀看;佢 Reels 慣用「留言關鍵字→DM 完整行程」,呢個係下一步最值得做嘅功能
+- /cms/dev 開發中工具(只 SS):輪播圖生成器 + 帖文生成器。阿陳語氣規則:**YouTube 用書面中文、IG/FB/Threads 用廣東話**(見 `src/cms/dev/voice.ts`)。帖文生成要 `wrangler secret put GEMINI_API_KEY`
 - P0 字幕係喺 YouTube 頁面自帶「轉錄稿」面板讀取(阿陳已同意用佢內容做 demo),冇存檔入 repo

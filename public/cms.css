@@ -88,3 +88,8 @@
 .future-grid .btn { align-self: flex-start; margin-top: 8px; font-size: 0.88rem; padding: 8px 14px; }
 @media (max-width: 1000px) { .admin-grid, .future-grid { grid-template-columns: repeat(2, 1fr); } }
 @media (max-width: 560px) { .admin-grid, .future-grid { grid-template-columns: 1fr; } .future-grid article:first-child { grid-column: auto; } }
+
+.cms-dev { margin-top: 16px; border: 2px dashed var(--ink); border-radius: var(--r); padding: 12px 18px; background: var(--card); }
+.cms-dev summary { cursor: pointer; font-weight: 900; }
+.cms-dev p { margin: 8px 0; color: var(--ink-2); font-size: 0.9rem; }
+.cms-dev a { display: inline-block; margin-right: 16px; font-weight: 700; color: var(--accent-ink); }

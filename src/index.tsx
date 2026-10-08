@@ -6,9 +6,22 @@ import { Home, GuideList, GuidePage, Links, WorkWithMe, About, NotFound } from '
 import { guideLd, personLd, websiteLd, ytThumb } from './seo'
 import { Cms, cmsTitle } from './cms/page'
 import { StudyBudget } from './cms/tools'
+import { CarouselStudio } from './cms/dev/carousel'
+import { frames } from './cms/dev/frames'
+import { PostStudio } from './cms/dev/posts'
+import { DevIndex } from './cms/dev/index'
+import { generatePosts, type PostInput } from './cms/dev/generate'
 
-type Env = { Bindings: { PREVIEW: string; SITE_URL: string } }
+type Env = { Bindings: { PREVIEW: string; SITE_URL: string; DEV_EMAILS: string; GEMINI_API_KEY?: string } }
 const app = new Hono<Env>()
+
+// /cms/dev/*：開發中工具，Cloudflare Access 另一個 app 只放 DEV_EMAILS（SS）入。
+// Worker 再核一次 Access 傳落嚟嘅電郵（雙重保險，API 會用 Gemini key）；本機開發冇 Access 就放行。
+const isDev = (c: { env: Env['Bindings']; req: { header: (k: string) => string | undefined } }) => {
+  if (c.env.SITE_URL.includes('localhost')) return true
+  const email = (c.req.header('cf-access-authenticated-user-email') ?? '').toLowerCase()
+  return !!email && c.env.DEV_EMAILS.toLowerCase().split(',').includes(email)
+}
 
 const ctx = (c: { env: Env['Bindings']; req: { path: string } }) => ({
   base: c.env.SITE_URL.replace(/\/$/, ''),
@@ -88,7 +101,7 @@ app.get('/cms', (c) => {
   const b = ctx(c)
   const meta: Meta = { ...b, title: cmsTitle, description: '阿陳同 SS 嘅工作間。', noindex: true }
   c.header('X-Robots-Tag', 'noindex, nofollow')
-  return c.html(<Layout meta={meta}><Cms /></Layout>)
+  return c.html(<Layout meta={meta}><Cms dev={isDev(c)} /></Layout>)
 })
 
 // /cms/lab/*：試驗層，同 /cms 一齊由 Cloudflare Access 鎖住
@@ -104,6 +117,36 @@ app.get('/cms/lab/study-budget', (c) => {
       </div>
     </Layout>,
   )
+})
+
+app.use('/cms/dev/*', async (c, next) => {
+  if (!isDev(c)) return c.notFound()
+  await next()
+  c.header('X-Robots-Tag', 'noindex, nofollow')
+})
+app.get('/cms/dev', (c) => {
+  if (!isDev(c)) return c.notFound()
+  const b = ctx(c)
+  return c.html(<Layout meta={{ ...b, title: '開發中工具', description: '', noindex: true }}><DevIndex /></Layout>)
+})
+app.get('/cms/dev/carousel', (c) => {
+  const b = ctx(c)
+  return c.html(<Layout meta={{ ...b, title: '輪播圖生成器', description: '', noindex: true }}><CarouselStudio frames={frames} /></Layout>)
+})
+app.get('/cms/dev/posts', (c) => {
+  const b = ctx(c)
+  return c.html(<Layout meta={{ ...b, title: '帖文生成器', description: '', noindex: true }}><PostStudio /></Layout>)
+})
+app.post('/cms/dev/api/posts', async (c) => {
+  if (!c.env.GEMINI_API_KEY) return c.json({ error: '未設定 GEMINI_API_KEY' }, 500)
+  const body = (await c.req.json().catch(() => null)) as PostInput | null
+  if (!body?.transcript || typeof body.transcript !== 'string') return c.json({ error: '冇字幕' }, 400)
+  if (body.transcript.length > 200_000) return c.json({ error: '字幕太長' }, 413)
+  try {
+    return c.json(await generatePosts(body, c.env.GEMINI_API_KEY))
+  } catch (e) {
+    return c.json({ error: String(e).slice(0, 300) }, 502)
+  }
 })
 
 // 聯盟轉址。P2 會喺呢度記點擊（D1）。

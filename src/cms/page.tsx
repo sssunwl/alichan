@@ -112,9 +112,17 @@ const future: { tag: string; title: string; body: string; link?: [string, string
 ]
 
 
-export const Cms = () => (
+export const Cms = (p: { dev?: boolean }) => (
   <div class="cms">
     <link rel="stylesheet" href="/cms.css" />
+    {p.dev && (
+      <details class="cms-dev wrap">
+        <summary>🔧 開發中（只有 SS 睇到）</summary>
+        <p>未俾阿陳睇住。睇完覺得 OK，就搬落「之後可以點發展」。</p>
+        <a href="/cms/dev/carousel">輪播圖生成器 →</a>
+        <a href="/cms/dev/posts">帖文生成器 →</a>
+      </details>
+    )}
 
     <header class="cms-head wrap">
       <p class="cms-badge">阿陳 × SS 工作間 · 只俾你睇</p>
