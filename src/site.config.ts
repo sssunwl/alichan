@@ -7,6 +7,9 @@ export const site = {
   tagline: '香港 YouTuber，拍日本深度旅遊、遊學同美食',
   lang: 'zh-Hant',
   locale: 'zh_HK',
+  avatar: 'https://yt3.googleusercontent.com/ZvnbNZ9IvywGhRAt6JqZzburarfV2UVspx_1GCb6LgrWmTOSvK5feSWiwfB486ISSJvIdkswIA=s240-c-k-c0x00ffffff-no-rj',
+  // 首頁標語：「幫大家搵更多日本秘景」係阿陳每集開場白，「真實花費」係佢嘅招牌系列
+  heroLead: '我係阿陳，香港 YouTuber。呢度係我啲片嘅文字版：價錢、地址、要唔要預約，一眼睇晒。',
   email: 'ching829520@gmail.com', // 影片簡介公開嘅合作邀約電郵
   socials: {
     youtube: 'https://www.youtube.com/@Alichan90s',
@@ -24,10 +27,10 @@ export const site = {
   },
   // 公開觀看數（2026-10-08 頻道頁「熱門影片」）
   topVideos: [
-    { title: '澳門狂食 24 小時', views: '23 萬', id: null },
-    { title: '新家 Home Tour：8 萬裝修日系復古工業風', views: '10 萬', id: null },
+    { title: '澳門狂食 24 小時', views: '23 萬', id: 'Rn9wWLHpQdk' },
+    { title: '新家 Home Tour：8 萬裝修日系復古工業風', views: '10 萬', id: 'IpNfbDbw4d4' },
     { title: '獨旅福岡 2 天 1 夜', views: '7.7 萬', id: 'd5w9k--VGjA' },
-    { title: '大阪 CHANEL 二手包+隱藏版壽司', views: '6.5 萬', id: null },
+    { title: '大阪 CHANEL 二手包+隱藏版壽司', views: '6.5 萬', id: 'KneeOM1WWvM' },
     { title: '日本自駕必知 8 件事', views: '5.9 萬', id: 'yRdZnt3EcBk' },
   ],
   topics: ['日本遊學', '東京', '福岡', '九州', '日本自駕', '獨旅', '沖繩', '四國', '港深美食', '泰國'],

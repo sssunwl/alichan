@@ -60,13 +60,13 @@ app.get('/topics/:tag', (c) => {
   const b = ctx(c)
   const items = guides.filter((g) => g.tags.includes(tag))
   const meta: Meta = { ...b, title: `${tag}攻略`, description: `${site.name} 嘅${tag}攻略。`, noindex: items.length === 0 }
-  return c.html(<Layout meta={meta}><GuideList title={`${tag}攻略`} items={items} /></Layout>)
+  return c.html(<Layout meta={meta}><GuideList title={`${tag}攻略`} items={items} kicker="主題" /></Layout>)
 })
 
 app.get('/links', (c) => {
   const b = ctx(c)
   const meta: Meta = { ...b, title: '連結', description: `${site.name} 嘅最新攻略、優惠碼同社群帳號。` }
-  return c.html(<Layout meta={meta}><Links /></Layout>)
+  return c.html(<Layout meta={meta} bare><Links /></Layout>)
 })
 
 app.get('/work-with-me', (c) => {
