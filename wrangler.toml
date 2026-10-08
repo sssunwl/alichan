@@ -1,0 +1,12 @@
+name = "alichan-demo"
+main = "src/index.tsx"
+compatibility_date = "2026-10-01"
+workers_dev = true
+
+[assets]
+directory = "./public"
+
+[vars]
+# P0 預覽站:全站 noindex。正式上線(P1)改 "false"
+PREVIEW = "true"
+SITE_URL = "https://alichan-demo.sssunjp.workers.dev"
