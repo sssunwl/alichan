@@ -1,0 +1,6 @@
+_private/
+_transcripts/
+node_modules/
+.wrangler/
+.dev.vars
+.DS_Store
