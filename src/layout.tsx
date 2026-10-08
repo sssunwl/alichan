@@ -77,6 +77,9 @@ export const Layout = (props: { meta: Meta; children: Child; bare?: boolean }) =
               <a href="/work-with-me" class="nav-cta">
                 品牌合作
               </a>
+              <a href="/cms" class="nav-cms" aria-current={m.path === '/cms' ? 'page' : undefined} title="阿陳同 SS 嘅工作間">
+                CMS
+              </a>
             </nav>
           </header>
         )}

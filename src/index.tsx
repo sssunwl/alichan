@@ -4,6 +4,7 @@ import { guides, findGuide, publishedGuides } from './content/guides'
 import { Layout, type Meta } from './layout'
 import { Home, GuideList, GuidePage, Links, WorkWithMe, About, NotFound } from './pages'
 import { guideLd, personLd, websiteLd, ytThumb } from './seo'
+import { Cms, cmsTitle } from './cms/page'
 
 type Env = { Bindings: { PREVIEW: string; SITE_URL: string } }
 const app = new Hono<Env>()
@@ -79,6 +80,14 @@ app.get('/about', (c) => {
   const b = ctx(c)
   const meta: Meta = { ...b, title: '關於阿陳', description: `${site.name}:${site.tagline}。`, ld: [personLd(b.base)] }
   return c.html(<Layout meta={meta}><About /></Layout>)
+})
+
+// SS 同阿陳嘅溝通位。正式版用 Cloudflare Access 鎖住（SPEC §9）；永遠 noindex、唔入 sitemap
+app.get('/cms', (c) => {
+  const b = ctx(c)
+  const meta: Meta = { ...b, title: cmsTitle, description: '阿陳同 SS 嘅工作間。', noindex: true }
+  c.header('X-Robots-Tag', 'noindex, nofollow')
+  return c.html(<Layout meta={meta}><Cms /></Layout>)
 })
 
 // 聯盟轉址。P2 會喺呢度記點擊（D1）。

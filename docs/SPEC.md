@@ -66,6 +66,7 @@
 | `/work-with-me` | 品牌合作 | 受眾數據(YouTube 自動、IG 手填)、過往合作、查詢表單 |
 | `/about` | 實體頁 | 給 Google / AI 認得「阿陳 = 這個人 = 這些帳號」 |
 | `/go/:code` | 聯盟連結轉址 | 記點擊後 302 轉去 Klook/Agoda 等 |
+| `/cms` | **SS ↔ KOL 溝通位**(唔係公開內容) | 2026-10-08 加。點解要用(Google 實測對照)、審稿流程示意、數據示意、建議加咩內容、平台成本、點自己改、三層網站(公開/KOL+SS/lab 試驗層)、待答問題。永遠 noindex;正式版用 Access 鎖。repo 公開所以**唔准寫 SS 收費** |
 
 ## 4. SEO / AEO / GEO 做法
 

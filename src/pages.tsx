@@ -390,7 +390,8 @@ export const GuidePage = (p: { g: Guide; review: boolean }) => {
           </section>
         )}
 
-        {g.sections.map((s) => (
+        {g.sections.map((s, index) => (
+          <>
           <section>
             <h2 class="sec">
               <span>{pad2(++n)}</span>
@@ -401,6 +402,20 @@ export const GuidePage = (p: { g: Guide; review: boolean }) => {
               <p>{b}</p>
             ))}
           </section>
+          {g.inlineAffiliates?.filter((affiliate) => affiliate.afterSection === index).map((affiliate) => {
+            const l = links[affiliate.code]
+            if (!l) return null
+            return (
+              <aside class="inline-coupon" aria-label="阿陳優惠碼">
+                <div class="inline-coupon-text">
+                  <small class="inline-coupon-kicker">阿陳優惠碼</small>
+                  <span>{affiliate.pitch} <a href={`/go/${affiliate.code}`} rel="sponsored nofollow">去 {l.label} 睇吓</a></span>
+                </div>
+                {l.code && <Copy code={l.code} />}
+              </aside>
+            )
+          })}
+          </>
         ))}
 
         {g.affiliates.length > 0 && (

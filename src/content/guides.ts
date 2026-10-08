@@ -35,6 +35,7 @@ export type Guide = {
   sections: Section[]
   faq: QA[]
   affiliates: string[]
+  inlineAffiliates?: { afterSection: number; code: string; pitch: string }[]
   needsCheck: string[]
 }
 
@@ -132,6 +133,7 @@ export const guides: Guide[] = [
       { q: '東京車站 IC 卡充值可唔可以碌卡?', a: '阿陳實測，車站充值機要用現金，職員位都係收現金。' },
     ],
     affiliates: ['klook'],
+    inlineAffiliates: [{ afterSection: 3, code: 'klook', pitch: '喺 Klook 訂交通票或者活動，用阿陳嘅碼有 5% 折扣。' }],
     needsCheck: [
       '總花費：日圓用縮圖嘅 605,790 円，港幣用另一條片（cw7QJqoGHPs）標題嘅「3 萬港幣」，請確認',
       '住宿：片中有「約 HK$500 一日」同「平均 HK$550」兩個講法，用邊個?',
@@ -223,7 +225,8 @@ export const guides: Guide[] = [
       { q: 'THE FULL FULL HAKATA 明太子法棍要等幾耐?', a: '阿陳平日下午去，攞號碼牌後等咗大約 25 分鐘。一條 444 日圓（2025-02）。' },
       { q: '博多一双去本店定中洲店?', a: '阿陳去中洲店，開店前 5 分鐘到排第 8。聽講本店要排隊。' },
     ],
-    affiliates: ['tocoo', 'klook'],
+    affiliates: ['klook'],
+    inlineAffiliates: [{ afterSection: 0, code: 'klook', pitch: '機場去市區之後想再去邊？喺 Klook 訂活動用阿陳嘅碼有 5% 折扣。' }],
     needsCheck: [
       '影片標題講「10 個景點」，字幕實際介紹 6 至 7 個地點，文章冇用「10 個」',
       '&LOCALS 大濠店：片中講「呢個嚟自八女市」，未確定係指抹茶定栗子，所以冇寫',
