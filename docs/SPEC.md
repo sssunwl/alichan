@@ -1,6 +1,6 @@
 # Alichan — KOL 自有內容站(第一個客人:阿陳 AliLife)
 
-> 狀態:2026-10-08 P0 demo 上線 https://alichan-demo.sssunjp.workers.dev (noindex),等阿陳審稿。本檔是唯一真相來源,SPEC 沒寫的不要自行發明,回報 SS 決定。
+> 狀態:2026-10-08 P0 demo 上線 https://alichan.sssuni.com (noindex),等阿陳審稿。本檔是唯一真相來源,SPEC 沒寫的不要自行發明,回報 SS 決定。
 
 ## 0. 一句話
 
