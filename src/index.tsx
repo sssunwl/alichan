@@ -11,6 +11,11 @@ import { frames } from './cms/dev/frames'
 import { PostStudio } from './cms/dev/posts'
 import { DevIndex } from './cms/dev/index'
 import { generatePosts, type PostInput } from './cms/dev/generate'
+import { QuoteStudio } from './cms/dev/quote'
+import { TrendsStudio } from './cms/dev/trends'
+import { RivalsStudio } from './cms/dev/rivals'
+import { ThumbStudio, thumbIdeaPrompt } from './cms/dev/thumbs'
+import { cached, fetchTrends, fetchRivals, geminiJson, trendIdeaPrompt } from './cms/dev/feeds'
 
 type Env = { Bindings: { PREVIEW: string; SITE_URL: string; DEV_EMAILS: string; GEMINI_API_KEY?: string } }
 const app = new Hono<Env>()
@@ -144,6 +149,49 @@ app.post('/cms/dev/api/posts', async (c) => {
   if (body.transcript.length > 200_000) return c.json({ error: '字幕太長' }, 413)
   try {
     return c.json(await generatePosts(body, c.env.GEMINI_API_KEY))
+  } catch (e) {
+    return c.json({ error: String(e).slice(0, 300) }, 502)
+  }
+})
+
+const devPage = (path: string, title: string, node: () => any) =>
+  app.get(path, (c) => {
+    const b = ctx(c)
+    return c.html(<Layout meta={{ ...b, title, description: '', noindex: true }}>{node()}</Layout>)
+  })
+devPage('/cms/dev/thumbs', '縮圖 Prompt 生成器', () => <ThumbStudio />)
+devPage('/cms/dev/trends', '熱門話題追蹤', () => <TrendsStudio />)
+devPage('/cms/dev/rivals', '對手追蹤', () => <RivalsStudio />)
+devPage('/cms/dev/quote', '報價單生成器', () => (
+  <QuoteStudio
+    stats={{ youtubeSubscribers: site.stats.youtubeSubscribers, instagramFollowers: site.stats.instagramFollowers, topReelViews: site.reels[0].views, asOf: site.stats.asOf }}
+    email={site.email}
+  />
+))
+app.post('/cms/dev/api/thumb-ideas', async (c) => {
+  if (!c.env.GEMINI_API_KEY) return c.json({ error: '未設定 GEMINI_API_KEY' }, 500)
+  const b = (await c.req.json().catch(() => null)) as { topic?: string } | null
+  if (!b?.topic) return c.json({ error: '冇主題' }, 400)
+  try {
+    return c.json(await geminiJson(c.env.GEMINI_API_KEY, thumbIdeaPrompt(b.topic.slice(0, 500))))
+  } catch (e) {
+    return c.json({ error: String(e).slice(0, 300) }, 502)
+  }
+})
+app.get('/cms/dev/api/trends', async (c) => {
+  try {
+    return c.json(await cached('trends-hk', 3600, () => fetchTrends('HK'), c.req.query('fresh') === '1'))
+  } catch (e) {
+    return c.json({ error: String(e) }, 502)
+  }
+})
+app.get('/cms/dev/api/rivals', async (c) => c.json(await cached('rivals', 3600, fetchRivals, c.req.query('fresh') === '1')))
+app.post('/cms/dev/api/trend-idea', async (c) => {
+  if (!c.env.GEMINI_API_KEY) return c.json({ error: '未設定 GEMINI_API_KEY' }, 500)
+  const b = (await c.req.json().catch(() => null)) as { trend?: string; news?: string[] } | null
+  if (!b?.trend) return c.json({ error: '冇話題' }, 400)
+  try {
+    return c.json(await geminiJson(c.env.GEMINI_API_KEY, trendIdeaPrompt(b.trend, (b.news ?? []).slice(0, 3))))
   } catch (e) {
     return c.json({ error: String(e).slice(0, 300) }, 502)
   }

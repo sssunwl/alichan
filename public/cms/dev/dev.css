@@ -42,3 +42,26 @@
 .ps-titles li { line-height: 1.6; }
 .ps-titles li span { margin-right: 8px; }
 @media (max-width: 560px) { .dev-cards, .ps-row { grid-template-columns: 1fr; } .ps-card .ps-count { margin-left: 0; } }
+
+/* 縮圖 Prompt 生成器 */
+.tp-style { background: var(--card); border: 1px solid var(--line); border-radius: var(--r); padding: 16px 20px; margin: 18px 0; max-width: 760px; }
+.tp-style ul { margin: 6px 0 0; padding-left: 1.2em; color: var(--ink-2); font-size: 0.9rem; line-height: 1.8; }
+.tp-form { display: grid; gap: 14px; max-width: 760px; }
+.tp-ai { display: flex; align-items: center; gap: 12px; }
+.tp-ai span { color: var(--accent-ink); font-weight: 700; font-size: 0.9rem; }
+.tp-ideas { display: flex; flex-wrap: wrap; gap: 8px; }
+.tp-idea { border: 2px solid var(--accent); background: var(--card); border-radius: 999px; padding: 6px 14px; font: 700 0.88rem/1.4 var(--sans); cursor: pointer; color: var(--ink); }
+.tp-out { margin-top: 24px; max-width: 860px; }
+.tp-out textarea { width: 100%; font: 400 0.85rem/1.6 var(--mono); padding: 12px; border-radius: 10px; border: 1px solid var(--line); background: var(--paper); }
+.tp-attach h2 { margin-top: 32px; font-size: 1.2rem; }
+.tp-attach h3 { font-size: 1rem; margin: 18px 0 10px; }
+.tp-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 8px; max-width: 860px; }
+.tp-grid a { display: grid; gap: 4px; text-decoration: none; color: var(--ink-2); font-size: 0.75rem; line-height: 1.4; }
+.tp-grid img { width: 100%; aspect-ratio: 16/9; object-fit: cover; border-radius: 8px; display: block; }
+.tp-grid a.is-new img { outline: 3px solid var(--accent); }
+.tp-grid span { display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; }
+.tp-all-wrap { margin-top: 28px; }
+.tp-all-wrap summary { cursor: pointer; font-weight: 900; margin-bottom: 12px; }
+.tp-all-wrap small { color: var(--accent-ink); margin-left: 8px; }
+.tp-all { grid-template-columns: repeat(6, 1fr); }
+@media (max-width: 560px) { .tp-grid { grid-template-columns: repeat(2, 1fr); } .tp-all { grid-template-columns: repeat(3, 1fr); } }

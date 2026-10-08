@@ -1,0 +1,82 @@
+/* 三個開發中後台工具；所有規則只套喺工具 root。 */
+:is([data-quote], [data-trends], [data-rivals]) { min-width: 0; font-family: var(--sans); overflow-wrap: anywhere; }
+:is([data-quote], [data-trends], [data-rivals]) *, :is([data-quote], [data-trends], [data-rivals]) *::before, :is([data-quote], [data-trends], [data-rivals]) *::after { box-sizing: border-box; }
+:is([data-quote], [data-trends], [data-rivals]) [hidden] { display: none !important; }
+.tool-toolbar { display: flex; align-items: center; flex-wrap: wrap; gap: 10px; margin: 16px 0; }
+.tool-toolbar p { flex: 1 1 260px; margin: 0; color: var(--muted); font-size: .85rem; }
+.tool-toolbar h2 { margin: 0; margin-right: auto; }
+.tool-button { font: 700 .85rem/1.5 var(--sans); border: 1px solid var(--line); background: var(--card); color: var(--ink); border-radius: var(--r); padding: 8px 12px; cursor: pointer; max-width: 100%; }
+.tool-button:hover, .tool-button[aria-pressed='true'] { background: var(--accent); color: var(--accent-ink); border-color: var(--accent); }
+.tool-button:disabled { opacity: .55; cursor: wait; }
+:is([data-quote], [data-trends], [data-rivals]) :focus-visible { outline: 3px solid var(--accent); outline-offset: 3px; }
+.tool-stack { display: grid; gap: 14px; min-width: 0; }
+.tool-stack > *, .quote-layout > *, .quote-item > *, .tool-video > * { min-width: 0; }
+.tool-stack h2, .quote-editor h2 { font-size: 1.15rem; margin-top: 0; }
+.tool-stack h3 { font-size: 1rem; margin: 8px 0; }
+.tool-stack .ps-card h2 { margin: 0; }
+.tool-chips { display: flex; flex-wrap: wrap; gap: 6px; margin: 8px 0; }
+.tool-chip { display: inline-block; padding: 3px 9px; border-radius: 999px; background: var(--paper); border: 1px solid var(--line); color: var(--ink-2); font: 500 .78rem/1.5 var(--sans); max-width: 100%; }
+.tool-error { color: #b32323; font-size: .85rem; font-weight: 700; }
+.tool-muted, .tool-empty { color: var(--muted); font-size: .85rem; }
+.tool-idea { border-top: 1px solid var(--line); padding-top: 10px; margin-top: 14px; }
+.tool-table-scroll { overflow-x: auto; max-width: 100%; border: 1px solid var(--line); border-radius: var(--r); background: var(--card); }
+.tool-table { border-collapse: collapse; width: 100%; min-width: 760px; text-align: left; font-size: .85rem; }
+.tool-table th, .tool-table td { padding: 12px; border-bottom: 1px solid var(--line); vertical-align: top; }
+.tool-table th { color: var(--ink-2); }
+.tool-table small { display: block; color: var(--muted); }
+.tool-table .tool-self { background: var(--marker); }
+.tool-truncate { display: block; max-width: 260px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+[data-rivals] summary { cursor: pointer; font-weight: 700; padding: 4px 0; }
+.tool-video { display: grid; grid-template-columns: 160px minmax(0, 1fr); gap: 14px; padding: 16px 0; border-top: 1px solid var(--line); }
+.tool-video:first-of-type { margin-top: 12px; }
+.tool-video img { width: 100%; height: auto; aspect-ratio: 16/9; border-radius: 8px; }
+.tool-video p { color: var(--muted); font-size: .8rem; margin: 8px 0; }
+.quote-layout { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 24px; margin-top: 24px; align-items: start; }
+.quote-editor { display: grid; gap: 18px; }
+.quote-preview-column { min-width: 0; }
+.quote-rates { display: grid; }
+.quote-rates > label { display: grid; grid-template-columns: minmax(0, 1fr) minmax(100px, 145px); align-items: center; gap: 12px; padding: 12px 0; border-bottom: 1px solid var(--line); }
+.quote-rates small, .quote-table small { display: block; font-size: .75rem; font-weight: 400; color: var(--muted); margin-top: 4px; }
+.quote-rate-input { display: flex; gap: 6px; align-items: center; font-family: var(--mono); font-size: .75rem; }
+.quote-rate-input input { min-width: 0; }
+[data-quote] select { width: 100%; min-width: 0; border: 1px solid var(--line); border-radius: 10px; padding: 10px; background: var(--card); color: var(--ink); font: .9rem var(--sans); }
+[data-quote] input, [data-quote] textarea { min-width: 0; }
+.quote-item { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 10px; padding: 12px; border: 1px solid var(--line); border-radius: var(--r); background: var(--paper); }
+.quote-item .tool-button { justify-self: start; }
+.quote-totals { padding-top: 12px; margin-top: 12px; border-top: 1px solid var(--line); }
+.quote-totals p { display: flex; justify-content: space-between; gap: 12px; margin: 7px 0; font-size: .9rem; }
+.quote-totals p:last-child { font-size: 1.1rem; font-weight: 700; }
+.quote-totals strong { font-family: var(--mono); text-align: right; }
+.quote-paper { background: #fff; color: #171717; aspect-ratio: 210/297; padding: 28px; border: 1px solid var(--line); box-shadow: var(--shadow); font-size: .8rem; overflow-wrap: anywhere; }
+.quote-paper header { border-bottom: 2px solid var(--ink); padding-bottom: 12px; }
+.quote-paper header > strong { font-size: 1.2rem; }
+.quote-paper h2 { font-size: 1.3rem; margin: 8px 0; }
+.quote-paper h3 { font-size: .9rem; margin-top: 20px; }
+.quote-meta { display: grid; grid-template-columns: 1fr 1fr; gap: 0 12px; margin: 12px 0; }
+.quote-meta p { margin: 6px 0; }
+.quote-audience { font-size: .72rem; line-height: 1.7; border-bottom: 1px solid var(--line); padding-bottom: 12px; }
+.quote-table { width: 100%; table-layout: fixed; border-collapse: collapse; text-align: left; font-size: .72rem; }
+.quote-table th, .quote-table td { padding: 10px 3px; vertical-align: top; border-bottom: 1px solid var(--line); }
+.quote-table th:first-child { width: 40%; }
+.quote-table th:nth-child(2) { width: 12%; }
+.quote-table th:nth-child(n+3), .quote-table td:nth-child(n+3) { text-align: right; }
+.quote-terms p { font-size: .72rem; line-height: 1.7; margin: 6px 0; white-space: pre-wrap; }
+.quote-notes { white-space: pre-wrap; }
+.quote-paper footer { border-top: 1px solid var(--line); padding-top: 14px; margin-top: 24px; font-size: .75rem; }
+@media (max-width: 1000px) { .quote-layout { grid-template-columns: minmax(0, 1fr); } }
+@media (max-width: 560px) { .tool-video { grid-template-columns: 96px minmax(0, 1fr); gap: 10px; } .quote-paper { padding: 16px; } .quote-table { font-size: .66rem; } .quote-paper .quote-totals strong { font-size: .85rem; } .quote-rates > label { grid-template-columns: minmax(0, 1fr) 126px; } }
+@media print {
+  @page { size: A4; margin: 12mm; }
+  body:has([data-quote]) *:not(.quote-paper):not(.quote-paper *):not(:has(.quote-paper)) { display: none !important; }
+  body:has([data-quote]) *:has(.quote-paper) { display: block !important; position: static !important; }
+  body:has([data-quote]) * { visibility: hidden !important; }
+  body:has([data-quote]) .quote-paper, body:has([data-quote]) .quote-paper * { visibility: visible !important; }
+  body:has([data-quote]) [hidden] { display: none !important; }
+  body:has([data-quote]) :is(header, main, .wrap, [data-quote], .quote-layout, .quote-preview-column) { margin: 0 !important; padding: 0 !important; max-width: none !important; width: auto; }
+  body:has([data-quote]) .quote-paper { position: absolute; left: 0; top: 0; width: 100%; min-height: 270mm; aspect-ratio: auto; padding: 0; border: 0; box-shadow: none; font-size: 10pt; }
+  body:has([data-quote]) .quote-paper header { padding-bottom: 12px !important; }
+  body:has([data-quote]) .quote-paper h2 { font-size: 18pt; }
+  body:has([data-quote]) .quote-paper :is(.quote-table, .quote-terms p, .quote-audience) { font-size: 9pt; }
+  body:has([data-quote]) .quote-paper tr { break-inside: avoid; }
+  body:has([data-quote]) .quote-editor, body:has([data-quote]) script, body:has([data-quote]) .tool-toolbar { display: none !important; }
+}

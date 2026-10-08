@@ -4,7 +4,7 @@ export const DevIndex = () => (
     <link rel="stylesheet" href="/cms/dev/dev.css" />
     <p class="dev-flag">開發中 · 只有 SS 睇到</p>
     <h1>開發中工具</h1>
-    <p class="ps-lead">兩個都係「後台小工具」嘅概念 demo。阿陳暫時睇唔到；OK 咗先搬去 CMS 俾佢睇。</p>
+    <p class="ps-lead">六個都係「後台小工具」嘅概念 demo。阿陳暫時睇唔到；OK 咗先搬去 CMS 俾佢睇。</p>
     <div class="dev-cards">
       <a href="/cms/dev/carousel">
         <span>01</span>
@@ -15,6 +15,26 @@ export const DevIndex = () => (
         <span>02</span>
         <strong>帖文生成器</strong>
         <p>放字幕／.srt，一次出 YouTube 標題、簡介、IG、Facebook、Threads，用阿陳語氣。YouTube 書面中文，IG／FB／Threads 廣東話。</p>
+      </a>
+      <a href="/cms/dev/thumbs">
+        <span>03</span>
+        <strong>YouTube 縮圖 Prompt 生成器</strong>
+        <p>睇晒 113 張舊縮圖歸納風格。填大字、鉤字、價錢標籤，出 ChatGPT 生圖 prompt，附埋樣貌參考同相似舊圖。新片自動加入。</p>
+      </a>
+      <a href="/cms/dev/trends">
+        <span>04</span>
+        <strong>熱門話題追蹤</strong>
+        <p>Google Trends 香港每日熱搜，同阿陳題材有關嘅排頭；撳一下用 AI 諗點拍。</p>
+      </a>
+      <a href="/cms/dev/rivals">
+        <span>05</span>
+        <strong>對手追蹤</strong>
+        <p>7 個同類頻道（暫定）最新片、觀看、出片頻率，同自動偵測嘅合作品牌。</p>
+      </a>
+      <a href="/cms/dev/quote">
+        <span>06</span>
+        <strong>報價單生成器</strong>
+        <p>收費表 + 快速套餐 + A4 報價單，一鍵存 PDF 或複製文字版 WhatsApp 俾品牌。</p>
       </a>
     </div>
     <p class="fine">

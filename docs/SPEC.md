@@ -67,7 +67,7 @@
 | `/about` | 實體頁 | 給 Google / AI 認得「阿陳 = 這個人 = 這些帳號」 |
 | `/go/:code` | 聯盟連結轉址 | 記點擊後 302 轉去 Klook/Agoda 等 |
 | `/cms` | **SS ↔ KOL 溝通位**(唔係公開內容) | 2026-10-08 加。點解要用(Google 實測對照)、審稿流程示意、數據示意、建議加咩內容、平台成本、點自己改、三層網站(公開/KOL+SS/lab 試驗層)、待答問題。永遠 noindex;**已用 Cloudflare Access 鎖**(app `alichan`,path `/cms`,policy `AliSS` = 阿陳 + SS 電郵,`/cms/lab/*` 一齊鎖)。repo 公開所以**唔准寫 SS 收費、唔准列 AI 出稿成本** |
-| `/cms/dev/*` | **開發中工具，只有 SS** | 2026-10-08:輪播圖生成器(`src/cms/dev/carousel.tsx`,4 款 1080×1440 匯出 ZIP)、帖文生成器(`posts.tsx`+`generate.ts`+語氣檔 `voice.ts`,Gemini 文字 API,key 係 Worker secret `GEMINI_API_KEY`)。Access app `alichan-dev`(policy `SSdev`)+ Worker 再核 `DEV_EMAILS`。相片 demo 用 YouTube 自動截圖(maxres1-3),正式版要 KOL 原片按時間碼抽 |
+| `/cms/dev/*` | **開發中工具，只有 SS** | 2026-10-08:輪播圖生成器(`src/cms/dev/carousel.tsx`,4 款 1080×1440 匯出 ZIP)、帖文生成器(`posts.tsx`+`generate.ts`+語氣檔 `voice.ts`,Gemini 文字 API,key 係 Worker secret `GEMINI_API_KEY`)。Access app `alichan-dev`(policy `SSdev`)+ Worker 再核 `DEV_EMAILS`。相片 demo 用 YouTube 自動截圖(maxres1-3),正式版要 KOL 原片按時間碼抽。2026-10-09 加:縮圖 Prompt 生成器(`thumbs.tsx`,113 張舊縮圖歸納風格,樣貌參考相放 `public/cms/dev/ref/`=gitignore)、熱門話題(Google Trends HK RSS)、對手追蹤(7 個暫定頻道 RSS+合作偵測,`feeds.ts`)、報價單生成器(`quote.tsx`,收費表存 localStorage,示範價有警示) |
 | `/cms/lab/*` | 試驗層 demo | 2026-10-08 第一個:東京遊學預算計算機(`src/cms/tools.tsx`) |
 
 ## 4. SEO / AEO / GEO 做法

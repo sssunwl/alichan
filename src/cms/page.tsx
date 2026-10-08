@@ -80,6 +80,36 @@ const future: { tag: string; title: string; body: string; link?: [string, string
     link: ['/cms/lab/study-budget', '試用（試驗層）'],
   },
   {
+    tag: '後台工具',
+    title: '輪播圖生成器',
+    body: '揀一篇攻略、揀一款設計（帳單／手帳／大字報／路線，全部跟你網站風格），自動砌好一組 IG 輪播圖，相片由你條片入面揀。撳字改字、撳相換相，一鍵下載成套。',
+  },
+  {
+    tag: '後台工具',
+    title: '帖文生成器',
+    body: '放片嘅字幕入去，一次過出 YouTube 標題（5 個揀）、YouTube 簡介連章節時間碼、IG、Facebook、Threads 帖文。照你語氣寫：YouTube 用書面語，IG／Threads 用廣東話，連「留言關鍵字」都幫你放好。',
+  },
+  {
+    tag: '後台工具',
+    title: 'YouTube 縮圖 Prompt',
+    body: '我睇晒你 113 張舊縮圖，整理出你嘅風格（底部紅色大字、右上粉紅鉤字、價錢標籤、國旗）。你填大字同重點，就出一段 prompt 貼去 ChatGPT 生圖，附埋你嘅樣貌參考相，畫出嚟似你。',
+  },
+  {
+    tag: '後台工具',
+    title: '熱門話題追蹤',
+    body: '每日自動睇香港 Google 熱搜，同你題材有關嘅（日本、旅行、機票、美食…）排最前，撳一下就俾你 3 個可以拍嘅角度。',
+  },
+  {
+    tag: '後台工具',
+    title: '同行追蹤',
+    body: '幾個同你題材相近嘅頻道：最近出咩片、幾多觀看、出片密唔密，仲會自動搵出佢哋最近同邊啲品牌合作，方便你知行情、搵潛在合作。',
+  },
+  {
+    tag: '後台工具',
+    title: '報價單生成器',
+    body: '你嘅價目表存喺後台，品牌問價時揀套餐（Reel、Reel＋網站專頁、全平台），即刻出一張有你數據嘅 A4 報價單，存 PDF 或者複製文字 WhatsApp 俾對方。',
+  },
+  {
     tag: '工具',
     title: '阿陳地圖',
     body: '你去過嘅餐廳、Cafe、酒店全部釘喺地圖上，可以揀城市：東京、福岡、曼谷、台北、香港。去旅行嘅人會直接開住嚟用。',
@@ -121,6 +151,11 @@ export const Cms = (p: { dev?: boolean }) => (
         <p>未俾阿陳睇住。睇完覺得 OK，就搬落「之後可以點發展」。</p>
         <a href="/cms/dev/carousel">輪播圖生成器 →</a>
         <a href="/cms/dev/posts">帖文生成器 →</a>
+        <a href="/cms/dev/thumbs">縮圖 Prompt →</a>
+        <a href="/cms/dev/trends">熱門話題 →</a>
+        <a href="/cms/dev/rivals">對手追蹤 →</a>
+        <a href="/cms/dev/quote">報價單 →</a>
+        <a href="/cms/dev">全部 →</a>
       </details>
     )}
 
@@ -349,7 +384,7 @@ export const Cms = (p: { dev?: boolean }) => (
     <section id="future" class="cms-sec wrap">
       <p class="cms-num">09</p>
       <h2>之後可以點發展</h2>
-      <p>網站唔止係文章。下面每樣都係由你現有內容出發，揀你想要嘅，一樣一樣加。</p>
+      <p>網站唔止係文章。下面每樣都係由你現有內容出發，揀你想要嘅，一樣一樣加。「後台工具」係只有你自己用、幫你慳時間嘅，我已經做緊示範版，整好就俾你試。</p>
       <div class="future-grid">
         {future.map((f) => (
           <article class={f.link ? 'live' : ''}>
