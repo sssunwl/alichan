@@ -66,7 +66,8 @@
 | `/work-with-me` | 品牌合作 | 受眾數據(YouTube 自動、IG 手填)、過往合作、查詢表單 |
 | `/about` | 實體頁 | 給 Google / AI 認得「阿陳 = 這個人 = 這些帳號」 |
 | `/go/:code` | 聯盟連結轉址 | 記點擊後 302 轉去 Klook/Agoda 等 |
-| `/cms` | **SS ↔ KOL 溝通位**(唔係公開內容) | 2026-10-08 加。點解要用(Google 實測對照)、審稿流程示意、數據示意、建議加咩內容、平台成本、點自己改、三層網站(公開/KOL+SS/lab 試驗層)、待答問題。永遠 noindex;正式版用 Access 鎖。repo 公開所以**唔准寫 SS 收費** |
+| `/cms` | **SS ↔ KOL 溝通位**(唔係公開內容) | 2026-10-08 加。點解要用(Google 實測對照)、審稿流程示意、數據示意、建議加咩內容、平台成本、點自己改、三層網站(公開/KOL+SS/lab 試驗層)、待答問題。永遠 noindex;**已用 Cloudflare Access 鎖**(app `alichan`,path `/cms`,policy `AliSS` = 阿陳 + SS 電郵,`/cms/lab/*` 一齊鎖)。repo 公開所以**唔准寫 SS 收費、唔准列 AI 出稿成本** |
+| `/cms/lab/*` | 試驗層 demo | 2026-10-08 第一個:東京遊學預算計算機(`src/cms/tools.tsx`) |
 
 ## 4. SEO / AEO / GEO 做法
 
@@ -140,7 +141,7 @@ P1 開始寫程式時,就把 KOL 相關的東西集中在 `site.config`,不要�
 
 1. **repo 是 public**:字幕、KOL 未公開資料、合作報價、查詢內容、金鑰一律不進 repo。憑證放 `~/.config/alichan/`,雲端放 Cloudflare secrets
 2. 正式站開在 **KOL 自己的 Cloudflare 帳號與網域**,SS 當 member(照 Knowledge SOP)
-3. 不做 IG feed 牆;不代 KOL 發任何社群貼文
+3. 不做 IG feed 牆;不代 KOL 發任何社群貼文。**例外(2026-10-08 SS 定)**:`/work-with-me` 可以放精選 Reels 3D 輪播做代表作(P0 手動揀+封面存 `public/ig/`;P1 改 Instagram API with Instagram Login 自動更新)
 4. 沒有 KOL 確認的數字(訂閱數以外的受眾資料、合作價錢)一律 `TBD`,不准編
 5. 中文標題 `line-height ≥ 1.05`、`letter-spacing ≥ -0.01em`
 

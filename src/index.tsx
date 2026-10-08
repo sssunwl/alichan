@@ -5,6 +5,7 @@ import { Layout, type Meta } from './layout'
 import { Home, GuideList, GuidePage, Links, WorkWithMe, About, NotFound } from './pages'
 import { guideLd, personLd, websiteLd, ytThumb } from './seo'
 import { Cms, cmsTitle } from './cms/page'
+import { StudyBudget } from './cms/tools'
 
 type Env = { Bindings: { PREVIEW: string; SITE_URL: string } }
 const app = new Hono<Env>()
@@ -88,6 +89,21 @@ app.get('/cms', (c) => {
   const meta: Meta = { ...b, title: cmsTitle, description: '阿陳同 SS 嘅工作間。', noindex: true }
   c.header('X-Robots-Tag', 'noindex, nofollow')
   return c.html(<Layout meta={meta}><Cms /></Layout>)
+})
+
+// /cms/lab/*：試驗層，同 /cms 一齊由 Cloudflare Access 鎖住
+app.get('/cms/lab/study-budget', (c) => {
+  const b = ctx(c)
+  const meta: Meta = { ...b, title: '東京遊學預算計算機', description: '用阿陳真實帳單做底嘅遊學預算計算機。', noindex: true }
+  c.header('X-Robots-Tag', 'noindex, nofollow')
+  return c.html(
+    <Layout meta={meta}>
+      <div class="wrap lab-wrap">
+        <p class="lab-flag">試驗層 · 只有你同 SS 睇到 · <a href="/cms#future">返去 CMS</a></p>
+        <StudyBudget />
+      </div>
+    </Layout>,
+  )
 })
 
 // 聯盟轉址。P2 會喺呢度記點擊（D1）。

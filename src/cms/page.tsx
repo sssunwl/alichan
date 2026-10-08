@@ -1,6 +1,6 @@
 // /cms：SS 同阿陳嘅溝通位（唔係公開內容）。
 // 「外面」= 讀者同品牌睇到嘅網站；「呢度」= 解釋點解要用、點用、要幾錢。
-// 正式版會用 Cloudflare Access 鎖住，只有阿陳同 SS 嘅電郵入得。
+// 已用 Cloudflare Access 鎖住（2026-10-08，policy AliSS：阿陳 + SS 兩個電郵），/cms/lab/* 一齊鎖。
 // repo 係 public：呢頁唔可以寫 SS 嘅收費同任何未公開資料。
 import { site } from '../site.config'
 import { ReviewDemo, ClickDemo } from './demos'
@@ -9,10 +9,13 @@ const toc = [
   ['why', '有咩用'],
   ['approve', '你要做咩'],
   ['data', '數據'],
+  ['brands', '對品牌'],
   ['content', '建議加咩'],
   ['cost', '成本'],
   ['edit', '點自己改'],
   ['layers', '三層網站'],
+  ['future', '之後做咩'],
+  ['ig', 'IG 接唔接到'],
   ['todo', '等你答'],
 ] as const
 
@@ -49,8 +52,65 @@ const costs: [string, string, string][] = [
   ['後台登入保護', 'HK$0', 'Cloudflare Access，50 人以內免費'],
   ['自訂電郵（hello@你網域）', 'HK$0', '轉寄去你現有 Gmail，唔使另外開信箱'],
   ['新片通知（Telegram）', 'HK$0', ''],
-  ['AI 將字幕寫成文章', '每篇幾蚊港紙', '視乎用邊個模型；可以用訂閱額度，就唔另外收錢'],
 ]
+
+// 後台功能清單（P1 開發範圍）
+const admin: [string, string[]][] = [
+  ['首頁', ['今個月：/links 瀏覽、優惠碼複製、品牌查詢', '待你審嘅草稿有幾多篇、新查詢有幾多個', '一眼睇到邊篇文最多人睇']],
+  ['審稿', ['左邊係草稿，右邊係影片；撳時間碼直接跳去嗰一秒核對', '價錢、店名、日期用黃色標住，全部剔晒先可以發佈', '可以即刻發佈，或者揀日子排程', '改字嘅時候即時預覽手機版']],
+  ['文章', ['全部文章一覽，可以搜尋', '價錢過期就改，系統自動更新「資料時間」', '唔想要嘅文可以落架，連結唔會死']],
+  ['連結同優惠碼', ['加、改、排序 /links 上面嘅連結', '優惠碼可以設到期日，過期自動收起', '每個碼睇到被複製幾多次、由邊度嚟']],
+  ['品牌查詢', ['所有查詢集中一個收件匣，唔再散落 DM 同電郵', '標狀態：新、傾緊、成交、婉拒', '記低預算同日期，之後做年度總結']],
+  ['品牌合作頁', ['揀邊幾條 Reels、影片做代表作', '更新粉絲數同觀眾資料（接咗 IG／YouTube 之後自動）']],
+  ['數據報告', ['每月 1 號自動整好一份報告寄俾你', '可以直接轉發俾品牌做合作報告']],
+  ['設定', ['頭像、自我介紹、社交連結、主色', '每次改動都有記錄，改錯可以一鍵還原']],
+]
+
+// 之後可以加嘅嘢（揀佢內容本身有嘅，唔係為做而做）
+const future: { tag: string; title: string; body: string; link?: [string, string] }[] = [
+  {
+    tag: '最值得做',
+    title: '「留言關鍵字」變網站專頁',
+    body: '你而家每條 Reel 都係「留言『三亞』我 DM 你完整行程」，然後逐個 DM。改成 DM 一條你網站嘅連結：每個關鍵字一頁，有行程、地址、地圖同優惠碼。你唔使逐個 copy-paste，搜尋都搵到，仲知道幾多人睇咗。',
+  },
+  {
+    tag: '已經整咗示範',
+    title: '東京遊學預算計算機',
+    body: '用你真實帳單做預設，讀者改月數、住宿、膳食，即刻計到總數。呢種工具人會收藏、會轉發，亦係 Google 鍾意嘅內容。',
+    link: ['/cms/lab/study-budget', '試用（試驗層）'],
+  },
+  {
+    tag: '工具',
+    title: '阿陳地圖',
+    body: '你去過嘅餐廳、Cafe、酒店全部釘喺地圖上，可以揀城市：東京、福岡、曼谷、台北、香港。去旅行嘅人會直接開住嚟用。',
+  },
+  {
+    tag: '工具',
+    title: '酒店開箱比較表',
+    body: '你開箱過嘅酒店排成一張表：區域、價錢、適合邊類人、你嘅一句評語。酒店品牌合作時可以直接放埋入去。',
+  },
+  {
+    tag: '工具',
+    title: '日本自駕費用計算',
+    body: '高速公路、ETC、油錢、租車，入日數同路線就計到大概要幾錢。等你自駕片嘅字幕到咗就可以做。',
+  },
+  {
+    tag: '生意',
+    title: '八珍湯小店',
+    body: '產品介紹、點飲、價錢、訂購表單，全部喺你自己網站。IG 負責講故事，網站負責收單。',
+  },
+  {
+    tag: '生意',
+    title: '旅行清單換電郵',
+    body: '例如「日本自駕出發前檢查表」，讀者留電郵就可以下載。慢慢儲到一班屬於你嘅讀者名單，唔使靠演算法。',
+  },
+  {
+    tag: '品牌',
+    title: '一鍵媒體資料包',
+    body: '數字自動更新嘅 PDF，品牌問你要 media kit，傳條連結就得。',
+  },
+]
+
 
 export const Cms = () => (
   <div class="cms">
@@ -69,7 +129,7 @@ export const Cms = () => (
         </div>
         <div class="me">
           <strong>呢度（只有你同我）</strong>
-          <span>審稿、數據、建議、成本。正式版要用你嘅電郵登入先入到。</span>
+          <span>審稿、數據、建議、成本。要用你電郵收數字碼登入先入到，其他人睇唔到。</span>
         </div>
       </div>
       <nav class="cms-toc" aria-label="目錄">
@@ -146,14 +206,39 @@ export const Cms = () => (
       <ClickDemo />
     </section>
 
-    <section id="content" class="cms-sec wrap">
+    <section id="brands" class="cms-sec wrap">
       <p class="cms-num">04</p>
+      <h2>品牌睇到你有自己網站，有咩分別？</h2>
+      <p>你同品牌傾嘅時候，可以咁講。外面嘅品牌合作頁已經寫咗精簡版，<a href="/work-with-me">去睇</a>。</p>
+      <div class="cms-cards">
+        <article>
+          <strong>1. 合作有「第二生命」</strong>
+          <p>Reel 過咗一兩日就沉底。加一篇網站專頁，寫齊地址、價錢、預約方法同品牌連結，之後幾個月有人搜尋都會見到。品牌買到嘅唔止一條片。</p>
+        </article>
+        <article>
+          <strong>2. 交到真實數字</strong>
+          <p>每個合作有專屬連結同優惠碼，記錄點擊同複製次數。合作完你交一份報告：幾多人撳、幾多人複製碼。品牌最想要呢樣，大部分 KOL 俾唔到。</p>
+        </article>
+        <article>
+          <strong>3. 你可以賣組合，收多啲</strong>
+          <p>「Reel＋YouTube＋網站專頁」可以當一個套餐報價。多咗一樣長期有效、有數據嘅交付，加價有根據。合作查詢表單已經加咗呢個選項。</p>
+        </article>
+        <article>
+          <strong>4. 睇落專業，少啲來回</strong>
+          <p>品牌唔使 DM 問你數據：IG 6.48 萬追蹤、最高 430 萬觀看、YouTube 1.71 萬訂閱，一頁睇晒。查詢表單問清楚類型同內容，你唔使逐個追問。</p>
+        </article>
+      </div>
+      <p class="fine">唔會講嘅：保證銷量、保證搜尋排名。可以講嘅係：專頁會一直喺度，數字會如實報。</p>
+    </section>
+
+    <section id="content" class="cms-sec wrap">
+      <p class="cms-num">05</p>
       <h2>建議你加嘅內容</h2>
       <div class="cms-cards">
         <article>
           <strong>先補數字（最快）</strong>
           <ul>
-            <li>IG、Threads 追蹤人數</li>
+            <li>Threads 追蹤人數（IG 6.48 萬已經填咗）</li>
             <li>觀眾地區（YouTube 後台「觀眾」就有，香港／台灣比例）</li>
             <li>做過嘅品牌合作（品牌名、類型；唔使寫價錢）</li>
           </ul>
@@ -181,7 +266,7 @@ export const Cms = () => (
     </section>
 
     <section id="cost" class="cms-sec wrap">
-      <p class="cms-num">05</p>
+      <p class="cms-num">06</p>
       <h2>自己網域 + 自己後台，成本幾多？</h2>
       <p>網站會開喺<b>你名下</b>嘅 Cloudflare 帳號同網域。下面係平台本身嘅成本，即係你直接俾 Cloudflare 嘅錢：</p>
       <div class="cost-table" role="table" aria-label="成本">
@@ -198,40 +283,36 @@ export const Cms = () => (
           <small role="cell">即係基本上只係網域費</small>
         </div>
       </div>
-      <p class="fine">價錢係 2026-10 嘅 Cloudflare 公開價，匯率用 US$1 ≈ HK$7.8。我嘅開發同維護費另外同你傾，唔喺呢度寫。</p>
-    </section>
-
-    <section id="edit" class="cms-sec wrap">
-      <p class="cms-num">06</p>
-      <h2>你點樣自己改內容</h2>
-      <div class="cms-cards">
-        <article>
-          <strong>登入：唔使記密碼</strong>
-          <p>去「你網域/admin」，輸入你電郵，收一個 6 位數字碼，入咗就得。手機都用得。</p>
-        </article>
-        <article>
-          <strong>你可以自己改</strong>
-          <ul>
-            <li>審稿、改字、撳發佈或者落架</li>
-            <li>優惠碼、連結頁排序、加減連結</li>
-            <li>合作頁嘅數字同代表作</li>
-            <li>睇品牌查詢同每月數據</li>
-          </ul>
-        </article>
-        <article>
-          <strong>你唔使理</strong>
-          <ul>
-            <li>設計、排版、速度</li>
-            <li>Google 要嘅技術設定（結構化資料、sitemap）</li>
-            <li>主機、備份、保安</li>
-          </ul>
-          <p>改錯咗都唔怕，每次發佈都有舊版本可以返轉頭。</p>
-        </article>
+      <p class="fine">價錢係 2026-10 嘅 Cloudflare 公開價，匯率用 US$1 ≈ HK$7.8。</p>
+      <div class="cms-service">
+        <strong>上面係「場地」，下面係「做嘢嘅人」</strong>
+        <p>平台成本係你直接俾 Cloudflare 嘅，我唔加一蚊。我負責嘅係：每月將你新片變成核對好、排好版、Google 讀得明嘅文章，跟進價錢過期，維護網站，同每月出一份數字報告。呢部分我哋見面傾。</p>
       </div>
     </section>
 
-    <section id="layers" class="cms-sec wrap">
+    <section id="edit" class="cms-sec wrap">
       <p class="cms-num">07</p>
+      <h2>你點樣自己改內容：後台有咩</h2>
+      <p>
+        後台喺「你網域/admin」。登入唔使記密碼：輸入你電郵，收一個 6 位數字碼就入到。手機同電腦都用得，新草稿、新查詢會 Telegram 通知你，喺 Telegram 撳「批准」都得。
+      </p>
+      <div class="admin-grid">
+        {admin.map(([title, items]) => (
+          <article>
+            <strong>{title}</strong>
+            <ul>
+              {items.map((i) => (
+                <li>{i}</li>
+              ))}
+            </ul>
+          </article>
+        ))}
+      </div>
+      <p class="cms-try">你唔使理：設計、速度、Google 技術設定、主機、備份、保安。</p>
+    </section>
+
+    <section id="layers" class="cms-sec wrap">
+      <p class="cms-num">08</p>
       <h2>三層網站：我點喺你個網後面開發新嘢</h2>
       <div class="layers">
         <div class="layer l1">
@@ -257,8 +338,62 @@ export const Cms = () => (
       </ul>
     </section>
 
+    <section id="future" class="cms-sec wrap">
+      <p class="cms-num">09</p>
+      <h2>之後可以點發展</h2>
+      <p>網站唔止係文章。下面每樣都係由你現有內容出發，揀你想要嘅，一樣一樣加。</p>
+      <div class="future-grid">
+        {future.map((f) => (
+          <article class={f.link ? 'live' : ''}>
+            <span>{f.tag}</span>
+            <strong>{f.title}</strong>
+            <p>{f.body}</p>
+            {f.link && (
+              <a class="btn" href={f.link[0]}>
+                {f.link[1]} →
+              </a>
+            )}
+          </article>
+        ))}
+      </div>
+    </section>
+
+    <section id="ig" class="cms-sec wrap">
+      <p class="cms-num">10</p>
+      <h2>除咗 YouTube，IG Reels 接唔接到？</h2>
+      <p>
+        接到。你個 IG 係創作者帳號，可以用 Instagram 官方 API：你授權一次（好似「用 Facebook 登入」咁撳同意），之後系統就讀到你自己嘅 Reels。
+      </p>
+      <div class="cms-cards">
+        <article>
+          <strong>而家（Demo）</strong>
+          <p>
+            品牌合作頁嘅 Reels 立體輪播，係我手動揀咗 7 條、用公開封面整嘅。<a href="/work-with-me">去睇</a>
+          </p>
+        </article>
+        <article>
+          <strong>接咗官方 API 之後</strong>
+          <ul>
+            <li>輪播自動顯示最新、最多人睇嘅 Reels，唔使手動換</li>
+            <li>粉絲數、觀看、觀眾地區同年齡自動更新去品牌合作頁</li>
+            <li>Reel 嘅文字說明同 YouTube 字幕一樣，自動出網站專頁草稿</li>
+            <li>授權每 60 日續一次，系統自動處理</li>
+          </ul>
+        </article>
+        <article>
+          <strong>要留意</strong>
+          <ul>
+            <li>「留言自動 DM」都可以用官方 API 做，但要經 Meta 審批，時間要預長啲</li>
+            <li>只會讀你自己帳號，唔會讀其他人</li>
+            <li>首頁唔會變成 IG 牆；Reels 只放喺品牌合作頁做代表作</li>
+            <li>Threads 都有官方 API，可以一齊接</li>
+          </ul>
+        </article>
+      </div>
+    </section>
+
     <section id="todo" class="cms-sec wrap">
-      <p class="cms-num">08</p>
+      <p class="cms-num">11</p>
       <h2>等你答嘅問題</h2>
       <ol class="cms-todo">
         <li>
@@ -276,7 +411,7 @@ export const Cms = () => (
           <b>聯盟計劃</b>：除咗 Klook、Tocoo，仲有冇其他（例如 Agoda、遊學中介轉介）？
         </li>
         <li>
-          <b>IG／Threads 數字同觀眾地區</b>：截圖俾我就得
+          <b>IG 觀眾地區同年齡</b>：IG 專業主控板 → 粉絲 截圖俾我就得；仲有你想喺品牌頁放邊幾條 Reels
         </li>
         <li>
           <b>你啲 KOL 朋友</b>：如果有人幫佢整呢個，你覺得佢哋一個月肯俾幾多？

@@ -9,4 +9,5 @@
 - 狀態(2026-10-08):**P0 demo 已上線** https://alichan.sssuni.com (全站 noindex,`?review=1` 睇待確認清單)。東京遊學、福岡 2 篇已整理待阿陳審稿;日本自駕 1 篇等字幕(YouTube 轉錄稿面板對呢條片回 400,唔好硬繞,等阿陳由 YouTube Studio 匯出 SRT)
 - 結構:Hono SSR Worker(`src/index.tsx`),KOL 資料集中 `src/site.config.ts`,文章 `src/content/guides.ts`。本機:workspace launch.json 嘅 `alichan`(port 8791);部署 `npx wrangler deploy`
 - 2026-10-08 加咗 `/cms`(SS↔阿陳溝通位,nav 半透明 CMS 掣;內容 `src/cms/page.tsx`,示意元件 `src/cms/demos.tsx`)同文章內「情境優惠碼」(`inlineAffiliates`)。Google 實測:阿陳影片欄有排名,但文字答案位係中介/旅遊網;自駕篇完全搵唔到
+- /cms 已上 Cloudflare Access(policy AliSS:ching829520@gmail.com + sssunjp@gmail.com);CMS 入口喺 footer。品牌頁有 IG Reels 3D 輪播(`src/ig-reels.tsx`,資料 `site.config.ts` reels)。阿陳 IG 6.48 萬、最高 Reel 430 萬觀看;佢 Reels 慣用「留言關鍵字→DM 完整行程」,呢個係下一步最值得做嘅功能
 - P0 字幕係喺 YouTube 頁面自帶「轉錄稿」面板讀取(阿陳已同意用佢內容做 demo),冇存檔入 repo

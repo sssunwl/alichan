@@ -1,6 +1,7 @@
 import { site, links } from './site.config'
 import { guides, publishedGuides, findGuide, type Guide } from './content/guides'
 import { ytAt, ytThumb } from './seo'
+import { ReelShowcase } from './ig-reels'
 
 const mmss = (t: number) => `${Math.floor(t / 60)}:${String(t % 60).padStart(2, '0')}`
 const isoMin = (d: string) => {
@@ -541,7 +542,7 @@ export const WorkWithMe = () => (
         <div>
           <p class="kicker">品牌合作</p>
           <h1>同阿陳合作</h1>
-          <p>日本深度旅遊、遊學、港深美食。觀眾係想認真計劃行程嘅人：睇花費、睇地址、睇值唔值得。</p>
+          <p>日本、泰國、台北旅遊，香港美食同酒店開箱。觀眾係想認真計劃行程嘅人：睇花費、睇地址、睇值唔值得。</p>
         </div>
         <dl class="big-stats">
           <div>
@@ -549,8 +550,8 @@ export const WorkWithMe = () => (
             <dd>{site.stats.youtubeSubscribers}</dd>
           </div>
           <div>
-            <dt>影片</dt>
-            <dd>{site.stats.youtubeVideos}</dd>
+            <dt>IG 最高觀看</dt>
+            <dd>{site.reels[0].views}</dd>
           </div>
           <div>
             <dt>Instagram</dt>
@@ -567,7 +568,47 @@ export const WorkWithMe = () => (
 
     <section class="wrap block">
       <header class="block-head">
-        <h2>代表作</h2>
+        <h2>Instagram Reels</h2>
+        <a href={site.socials.instagram}>@{site.instagramHandle}</a>
+      </header>
+      <ReelShowcase
+        reels={site.reels.map((r) => ({
+          url: `https://www.instagram.com/reel/${r.id}/`,
+          cover: `/ig/${r.id}.jpg`,
+          caption: r.caption,
+          views: r.views,
+        }))}
+        profileUrl={site.socials.instagram}
+        handle={site.instagramHandle}
+      />
+    </section>
+
+    <section class="wrap block">
+      <header class="block-head">
+        <h2>同阿陳合作，品牌會得到咩</h2>
+      </header>
+      <div class="brand-gets">
+        <article>
+          <span>01</span>
+          <strong>Reel 之外，仲有一篇搵得到嘅文章</strong>
+          <p>IG 短片過咗一兩日就會沉底。每個合作都可以加一篇網站專頁，寫齊地址、價錢、預約方法，之後幾個月有人搜尋都會見到。</p>
+        </article>
+        <article>
+          <span>02</span>
+          <strong>點擊數字，唔止觀看數字</strong>
+          <p>專屬連結同優惠碼會記錄點擊同複製次數。合作完你會收到一份數字報告，知道有幾多人真係行動。</p>
+        </article>
+        <article>
+          <span>03</span>
+          <strong>啱你嘅觀眾</strong>
+          <p>阿陳每條片都講真實花費同踩過嘅坑，跟佢嘅人係準備出發、準備落訂嘅人，唔係淨係睇開心。</p>
+        </article>
+      </div>
+    </section>
+
+    <section class="wrap block">
+      <header class="block-head">
+        <h2>YouTube 代表作</h2>
       </header>
       <div class="work-videos">
         {site.topVideos.map((v) => (
@@ -603,7 +644,8 @@ export const WorkWithMe = () => (
           合作類型
           <select name="type">
             <option>影片合作</option>
-            <option>IG / Threads 貼文</option>
+            <option>IG Reels / Threads</option>
+            <option>Reel + 網站專頁組合</option>
             <option>活動 / 體驗邀請</option>
             <option>其他</option>
           </select>

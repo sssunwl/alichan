@@ -531,14 +531,13 @@ a.stamp:hover { transform: rotate(0) scale(1.06); background: var(--card); }
 }
 
 /* Nav：CMS 入口（半透明，係阿陳同 SS 嘅工作間，唔係俾讀者） */
-.site-head .nav-cms { border: 1px dashed var(--muted); color: var(--muted) !important; opacity: 0.6; font: 700 0.78rem/1 var(--mono) !important; letter-spacing: 0.06em; padding: 9px 10px !important; }
-.site-head .nav-cms:hover, .site-head .nav-cms[aria-current] { opacity: 1; background: var(--card) !important; color: var(--ink) !important; }
+.foot-links .foot-cms { border: 1px dashed currentColor; border-radius: 999px; padding: 2px 10px; opacity: 0.45; font: 700 0.75rem/1.6 var(--mono); letter-spacing: 0.06em; }
+.foot-links .foot-cms:hover { opacity: 1; }
 .site-head nav a, .brand span { white-space: nowrap; }
 @media (max-width: 560px) {
   .site-head { gap: 8px; }
   .site-head nav { gap: 2px; }
   .site-head nav a { padding: 8px 9px; font-size: 0.88rem; }
-  .site-head .nav-cms { padding: 8px 7px !important; font-size: 0.7rem !important; }
 }
 @media (max-width: 380px) {
   .brand b { display: none; }
@@ -547,3 +546,69 @@ a.stamp:hover { transform: rotate(0) scale(1.06); background: var(--card); }
 .inline-coupon { border: 2px dashed var(--accent); }
 .inline-coupon-text { display: grid; gap: 2px; }
 .inline-coupon-kicker { font: 700 0.7rem/1.4 var(--mono); color: var(--accent-ink); letter-spacing: 0.04em; }
+
+/* 東京遊學預算小工具 */
+.sb-tool { min-width: 0; padding: 24px; color: var(--ink); background: var(--card); border: 1px solid var(--line); border-radius: var(--r); font-family: var(--sans); }
+.sb-kicker { color: var(--accent-ink); font: 700 .75rem/1.5 var(--mono); }
+.sb-tool h2 { margin: 8px 0; font-size: clamp(1.5rem, 4vw, 2rem); }
+.sb-tool p { line-height: 1.7; }
+.sb-layout { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1.3fr); gap: 28px; margin-top: 24px; }
+.sb-inputs { display: grid; align-content: start; gap: 14px; min-width: 0; }
+.sb-inputs label { display: grid; gap: 6px; color: var(--ink-2); font-size: .9rem; }
+.sb-inputs input { box-sizing: border-box; width: 100%; min-width: 0; padding: 10px 12px; border: 1px solid var(--line); border-radius: var(--r); background: var(--paper); color: var(--ink); font: 400 1rem/1.4 var(--mono); }
+.sb-inputs input:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+.sb-help, .sb-notes { color: var(--muted); font-size: .75rem; }
+.sb-inputs .sb-help { margin: 0; }
+.sb-receipt { min-width: 0; padding: 24px 18px; background: var(--paper); border: 1px dashed var(--line); box-shadow: var(--shadow); }
+.sb-receipt table { width: 100%; border-collapse: collapse; font-size: .85rem; }
+.sb-receipt caption { padding-bottom: 18px; font-weight: 700; text-align: left; color: var(--ink); }
+.sb-receipt th, .sb-receipt td { padding: 12px 3px; border-bottom: 1px dashed var(--line); text-align: right; font-weight: 400; }
+.sb-receipt th:first-child { text-align: left; }
+.sb-receipt td { font-family: var(--mono); white-space: nowrap; }
+.sb-receipt thead { color: var(--muted); font-size: .7rem; }
+.sb-receipt tfoot th, .sb-receipt tfoot td { padding-top: 20px; border-bottom: 0; font-weight: 700; font-size: clamp(1rem, 2vw, 1.45rem); }
+.sb-notes { border-top: 1px dashed var(--line); margin-top: 20px; overflow-wrap: anywhere; }
+.sb-notes a { color: var(--accent-ink); }
+@media (max-width: 700px) {
+  .sb-tool { padding: 18px; }
+  .sb-layout { grid-template-columns: minmax(0, 1fr); }
+  .sb-receipt { padding: 20px 10px; }
+  .sb-receipt table { font-size: .75rem; }
+  .sb-receipt tfoot th, .sb-receipt tfoot td { font-size: 1rem; }
+}
+
+/* Instagram 短片 coverflow；冇 JS 時保留橫向捲動 */
+.reel-showcase { box-sizing: border-box; width: 100%; max-width: 100%; min-width: 0; overflow: hidden; padding: 16px 0 24px; text-align: center; color: var(--ink); font-family: var(--sans); }
+.reel-stage { display: flex; gap: 18px; width: 100%; box-sizing: border-box; padding: 24px 18px; overflow-x: auto; scroll-snap-type: x mandatory; perspective: 1000px; }
+.reel-card { position: relative; display: block; flex: 0 0 200px; width: 200px; aspect-ratio: 9 / 16; overflow: hidden; border-radius: var(--r); background: var(--card); box-shadow: var(--shadow); scroll-snap-align: center; color: white; text-align: left; isolation: isolate; }
+.reel-card img { width: 100%; height: 100%; object-fit: cover; display: block; }
+.reel-icon { position: absolute; top: 12px; left: 12px; display: grid; place-items: center; width: 28px; height: 28px; border-radius: 50%; background: rgb(0 0 0 / .45); }
+.reel-overlay { position: absolute; inset: auto 0 0; padding: 48px 14px 16px; background: linear-gradient(transparent, rgb(0 0 0 / .85)); }
+.reel-caption { display: -webkit-box; -webkit-box-orient: vertical; -webkit-line-clamp: 2; overflow: hidden; font-size: .9rem; font-weight: 700; line-height: 1.5; overflow-wrap: anywhere; }
+.reel-views { display: block; margin-top: 6px; font: 400 .7rem/1.4 var(--mono); }
+.reel-controls { display: none; justify-content: center; gap: 14px; margin: 8px 0 18px; }
+.reel-arrow { width: 42px; height: 42px; border: 1px solid var(--line); border-radius: 50%; background: var(--card); color: var(--ink-2); font: 700 1.2rem var(--sans); cursor: pointer; }
+.reel-arrow:disabled { opacity: .4; cursor: default; }
+.reel-more { display: inline-block; max-width: calc(100% - 32px); box-sizing: border-box; padding: 12px 20px; border-radius: var(--r); background: var(--accent); color: var(--paper); font-weight: 700; overflow-wrap: anywhere; }
+.reel-card:focus-visible, .reel-arrow:focus-visible, .reel-more:focus-visible { outline: 3px solid var(--accent-ink); outline-offset: 3px; }
+.reel-showcase[data-reel-ready] .reel-stage { display: block; position: relative; height: 410px; overflow: hidden; touch-action: pan-y; }
+.reel-showcase[data-reel-ready] .reel-card { position: absolute; top: 28px; left: calc(50% - 100px); transform: translateX(calc(var(--reel-offset) * 145px)) translateZ(var(--reel-depth)) rotateY(var(--reel-angle)) scale(var(--reel-scale)); transition: transform .8s ease, opacity .8s ease; }
+.reel-showcase[data-reel-ready] .reel-card[aria-current] { box-shadow: 0 18px 36px rgb(0 0 0 / .25), var(--shadow); }
+.reel-showcase[data-reel-ready] .reel-controls { display: flex; }
+@media (max-width: 560px) {
+  .reel-card { flex-basis: 160px; width: 160px; }
+  .reel-showcase[data-reel-ready] .reel-stage { height: 340px; }
+  .reel-showcase[data-reel-ready] .reel-card { left: calc(50% - 80px); transform: translateX(calc(var(--reel-offset) * 105px)) translateZ(var(--reel-depth)) rotateY(var(--reel-angle)) scale(var(--reel-scale)); }
+}
+
+/* 品牌合作頁：品牌會得到咩 */
+.brand-gets { display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px; }
+.brand-gets article { background: var(--card); border: 1px solid var(--line); border-radius: var(--r); padding: 22px; box-shadow: var(--shadow); }
+.brand-gets span { font: 700 0.8rem/1 var(--mono); color: var(--accent); }
+.brand-gets strong { display: block; font-size: 1.08rem; line-height: 1.4; margin: 10px 0 6px; }
+.brand-gets p { margin: 0; color: var(--ink-2); font-size: 0.95rem; line-height: 1.7; }
+@media (max-width: 860px) { .brand-gets { grid-template-columns: 1fr; } }
+/* /cms/lab 試驗層 */
+.lab-wrap { padding-top: 24px; padding-bottom: 64px; }
+.lab-flag { display: inline-block; font: 700 0.78rem/1.5 var(--mono); background: var(--ink); color: var(--paper); padding: 8px 14px; border-radius: 999px; margin: 0 0 24px; }
+.lab-flag a { color: var(--marker); }

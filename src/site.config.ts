@@ -21,7 +21,7 @@ export const site = {
     asOf: '2026-10-08',
     youtubeSubscribers: '1.71 萬',
     youtubeVideos: 143,
-    instagramFollowers: null as string | null,
+    instagramFollowers: '6.48 萬' as string | null, // IG 個人頁公開數字，2026-10-08
     threadsFollowers: null as string | null,
     audienceRegions: null as string | null,
   },
@@ -32,6 +32,19 @@ export const site = {
     { title: '獨旅福岡 2 天 1 夜', views: '7.7 萬', id: 'd5w9k--VGjA' },
     { title: '大阪 CHANEL 二手包+隱藏版壽司', views: '6.5 萬', id: 'KneeOM1WWvM' },
     { title: '日本自駕必知 8 件事', views: '5.9 萬', id: 'yRdZnt3EcBk' },
+  ],
+  // IG Reels（2026-10-08 由 @__ali.c 公開 Reels 頁讀取；封面存 public/ig/）
+  // 正式版改用 Instagram API 自動更新（見 /cms「IG 可唔可以接」）
+  instagramHandle: '__ali.c',
+  instagramPosts: '2,038',
+  reels: [
+    { id: 'C7l_x7_So4g', views: '430 萬', caption: 'iPhone 隱藏「星夜模式」：3 個步驟拍出浪漫星空' },
+    { id: 'DQbwoxkj0Dk', views: '20.2 萬', caption: '遊輪初體驗｜皇家加勒比「海洋贊禮號」' },
+    { id: 'DZ5AY1DJipd', views: '11.6 萬', caption: '海南三亞 4 日 3 夜｜唔使 $3000，香港直飛 1 小時' },
+    { id: 'DdobftvpiR_', views: '5.7 萬', caption: '上環爆紅 Cafe｜以為食 Pasta，點知甜品先係主角' },
+    { id: 'DdwF5vKpzR0', views: '3.1 萬', caption: '曼谷水門批發市場｜穿搭＋美食一次過掃' },
+    { id: 'DeHLf_WxEWe', views: '2.16 萬', caption: '東京近郊秋日秘境｜茨城掃帚草＋海上鳥居' },
+    { id: 'DeCFbxUJCc6', views: '2.09 萬', caption: '中環 3 間手工意粉店｜預約困難店＋$198 Lunch' },
   ],
   topics: ['日本遊學', '東京', '福岡', '九州', '日本自駕', '獨旅', '沖繩', '四國', '港深美食', '泰國'],
 } as const

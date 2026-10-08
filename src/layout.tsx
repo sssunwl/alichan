@@ -77,9 +77,6 @@ export const Layout = (props: { meta: Meta; children: Child; bare?: boolean }) =
               <a href="/work-with-me" class="nav-cta">
                 品牌合作
               </a>
-              <a href="/cms" class="nav-cms" aria-current={m.path === '/cms' ? 'page' : undefined} title="阿陳同 SS 嘅工作間">
-                CMS
-              </a>
             </nav>
           </header>
         )}
@@ -99,6 +96,9 @@ export const Layout = (props: { meta: Meta; children: Child; bare?: boolean }) =
               <a href={site.socials.threads} rel="me">Threads</a>
               <a href="/links">全部連結</a>
               <a href="/work-with-me">品牌合作</a>
+              <a href="/cms" class="foot-cms" title="阿陳同 SS 嘅工作間（要登入）">
+                CMS
+              </a>
             </nav>
           </footer>
         )}

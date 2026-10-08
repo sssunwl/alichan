@@ -68,3 +68,23 @@
   .cost-table > div { grid-template-columns: 1fr; }
   .cost-table b { text-align: left; }
 }
+
+.cms-service { max-width: 860px; margin-top: 18px; padding: 18px 20px; border-radius: var(--r); background: var(--marker); }
+.cms-service strong { display: block; font-size: 1.05rem; margin-bottom: 6px; }
+.cms-service p { margin: 0; color: var(--ink); line-height: 1.75; }
+.admin-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px; margin: 22px 0; }
+.admin-grid article { background: var(--card); border: 1px solid var(--line); border-radius: var(--r); padding: 16px 18px; }
+.admin-grid strong { display: block; font-size: 1rem; margin-bottom: 4px; }
+.admin-grid ul { margin: 0; padding-left: 1.1em; color: var(--ink-2); font-size: 0.88rem; line-height: 1.7; }
+.future-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px; margin: 22px 0; }
+.future-grid article { background: var(--card); border: 1px solid var(--line); border-radius: var(--r); padding: 18px; display: flex; flex-direction: column; gap: 6px; }
+.future-grid article:first-child { grid-column: span 2; background: var(--ink); color: var(--paper); border-color: var(--ink); }
+.future-grid article:first-child p { color: rgba(255, 253, 248, 0.8); }
+.future-grid article:first-child span { background: var(--marker); color: var(--ink); }
+.future-grid article.live { border: 2px solid var(--accent); }
+.future-grid span { align-self: flex-start; font: 700 0.7rem/1 var(--mono); background: var(--paper-2); color: var(--ink-2); padding: 5px 8px; border-radius: 6px; }
+.future-grid strong { font-size: 1.05rem; line-height: 1.4; }
+.future-grid p { margin: 0; color: var(--ink-2); font-size: 0.9rem; line-height: 1.7; flex: 1; }
+.future-grid .btn { align-self: flex-start; margin-top: 8px; font-size: 0.88rem; padding: 8px 14px; }
+@media (max-width: 1000px) { .admin-grid, .future-grid { grid-template-columns: repeat(2, 1fr); } }
+@media (max-width: 560px) { .admin-grid, .future-grid { grid-template-columns: 1fr; } .future-grid article:first-child { grid-column: auto; } }
