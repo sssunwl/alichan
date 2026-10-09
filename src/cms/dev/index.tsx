@@ -1,7 +1,7 @@
 // /cms/dev：開發中工具入口（只有 SS 睇到）
 export const DevIndex = () => (
   <div class="wrap dev-index">
-    <link rel="stylesheet" href="/cms/dev/dev.css" />
+    <link rel="stylesheet" href="/cms/kit/dev.css" />
     <p class="dev-flag">開發中 · 只有 SS 睇到</p>
     <h1>開發中工具</h1>
     <p class="ps-lead">六個都係「後台小工具」嘅概念 demo。阿陳暫時睇唔到；OK 咗先搬去 CMS 俾佢睇。</p>

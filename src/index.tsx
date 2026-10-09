@@ -5,7 +5,7 @@ import { Layout, type Meta } from './layout'
 import { Home, GuideList, GuidePage, Links, WorkWithMe, About, NotFound } from './pages'
 import { guideLd, personLd, websiteLd, ytThumb } from './seo'
 import { Cms, cmsTitle } from './cms/page'
-import { StudyBudget } from './cms/tools'
+import { StudyBudget } from './cms/budget'
 import { CarouselStudio } from './cms/dev/carousel'
 import { frames } from './cms/dev/frames'
 import { PostStudio } from './cms/dev/posts'
@@ -15,9 +15,12 @@ import { QuoteStudio } from './cms/dev/quote'
 import { TrendsStudio } from './cms/dev/trends'
 import { RivalsStudio } from './cms/dev/rivals'
 import { ThumbStudio, thumbIdeaPrompt } from './cms/dev/thumbs'
-import { cached, fetchTrends, fetchRivals, geminiJson, trendIdeaPrompt } from './cms/dev/feeds'
+import { cached, fetchTrends, fetchRivals, geminiJson, trendIdeaPrompt, resolveChannel, RIVALS, WATCH, type Rival } from './cms/dev/feeds'
+import { ToolsShell, ToolsHome, TOOLS, type ToolId } from './cms/tools/shell'
+import { ReelStudio } from './cms/tools/reels'
+import { seedBoard, reelIdeasPrompt, type Board } from './cms/tools/board'
 
-type Env = { Bindings: { PREVIEW: string; SITE_URL: string; DEV_EMAILS: string; GEMINI_API_KEY?: string } }
+type Env = { Bindings: { PREVIEW: string; SITE_URL: string; DEV_EMAILS: string; MEMBER_EMAILS: string; GEMINI_API_KEY?: string; KV: KVNamespace } }
 const app = new Hono<Env>()
 
 // /cms/dev/*：開發中工具，Cloudflare Access 另一個 app 只放 DEV_EMAILS（SS）入。
@@ -27,6 +30,16 @@ const isDev = (c: { env: Env['Bindings']; req: { header: (k: string) => string |
   const email = (c.req.header('cf-access-authenticated-user-email') ?? '').toLowerCase()
   return !!email && c.env.DEV_EMAILS.toLowerCase().split(',').includes(email)
 }
+
+// /cms/tools、/cms/api：阿陳 + SS（Access policy AliSS），Worker 再核一次
+const isMember = (c: { env: Env['Bindings']; req: { header: (k: string) => string | undefined } }) => {
+  if (c.env.SITE_URL.includes('localhost')) return true
+  const email = (c.req.header('cf-access-authenticated-user-email') ?? '').toLowerCase()
+  return !!email && c.env.MEMBER_EMAILS.toLowerCase().split(',').includes(email)
+}
+
+const kvGet = async <T,>(kv: KVNamespace, key: string, fallback: () => T): Promise<T> => ((await kv.get(key, 'json')) as T | null) ?? fallback()
+const listKey = (xs: { toString(): string }[]) => [...xs.map(String)].join('|').length + '-' + [...xs.map(String)].join('|').slice(0, 60).replace(/[^\w]/g, '')
 
 const ctx = (c: { env: Env['Bindings']; req: { path: string } }) => ({
   base: c.env.SITE_URL.replace(/\/$/, ''),
@@ -142,7 +155,13 @@ app.get('/cms/dev/posts', (c) => {
   const b = ctx(c)
   return c.html(<Layout meta={{ ...b, title: '帖文生成器', description: '', noindex: true }}><PostStudio /></Layout>)
 })
-app.post('/cms/dev/api/posts', async (c) => {
+app.use('/cms/api/*', async (c, next) => {
+  if (!isMember(c)) return c.json({ error: '冇權限' }, 403)
+  await next()
+  c.header('cache-control', 'no-store')
+})
+
+app.post('/cms/api/posts', async (c) => {
   if (!c.env.GEMINI_API_KEY) return c.json({ error: '未設定 GEMINI_API_KEY' }, 500)
   const body = (await c.req.json().catch(() => null)) as PostInput | null
   if (!body?.transcript || typeof body.transcript !== 'string') return c.json({ error: '冇字幕' }, 400)
@@ -168,7 +187,7 @@ devPage('/cms/dev/quote', '報價單生成器', () => (
     email={site.email}
   />
 ))
-app.post('/cms/dev/api/thumb-ideas', async (c) => {
+app.post('/cms/api/thumb-ideas', async (c) => {
   if (!c.env.GEMINI_API_KEY) return c.json({ error: '未設定 GEMINI_API_KEY' }, 500)
   const b = (await c.req.json().catch(() => null)) as { topic?: string } | null
   if (!b?.topic) return c.json({ error: '冇主題' }, 400)
@@ -178,15 +197,69 @@ app.post('/cms/dev/api/thumb-ideas', async (c) => {
     return c.json({ error: String(e).slice(0, 300) }, 502)
   }
 })
-app.get('/cms/dev/api/trends', async (c) => {
+app.get('/cms/api/trends', async (c) => {
+  const watch = await kvGet<string[]>(c.env.KV, 'watch', () => WATCH)
   try {
-    return c.json(await cached('trends-hk', 3600, () => fetchTrends('HK'), c.req.query('fresh') === '1'))
+    return c.json(await cached('trends-hk-' + listKey(watch), 3600, () => fetchTrends('HK', watch), c.req.query('fresh') === '1'))
   } catch (e) {
     return c.json({ error: String(e) }, 502)
   }
 })
-app.get('/cms/dev/api/rivals', async (c) => c.json(await cached('rivals', 3600, fetchRivals, c.req.query('fresh') === '1')))
-app.post('/cms/dev/api/trend-idea', async (c) => {
+app.get('/cms/api/rivals', async (c) => {
+  const list = await kvGet<Rival[]>(c.env.KV, 'rivals', () => RIVALS)
+  return c.json(await cached('rivals-' + listKey(list.map((r) => r.id)), 3600, () => fetchRivals(list), c.req.query('fresh') === '1'))
+})
+app.get('/cms/api/watch', async (c) => c.json({ words: await kvGet<string[]>(c.env.KV, 'watch', () => WATCH) }))
+app.put('/cms/api/watch', async (c) => {
+  const b = (await c.req.json().catch(() => null)) as { words?: unknown } | null
+  if (!Array.isArray(b?.words)) return c.json({ error: '格式唔啱' }, 400)
+  const words = [...new Set(b.words.map((w) => String(w).trim()).filter((w) => w && w.length <= 20))].slice(0, 80)
+  await c.env.KV.put('watch', JSON.stringify(words))
+  return c.json({ words })
+})
+app.get('/cms/api/rivals-list', async (c) => c.json({ channels: await kvGet<Rival[]>(c.env.KV, 'rivals', () => RIVALS) }))
+app.post('/cms/api/rivals-list', async (c) => {
+  const b = (await c.req.json().catch(() => null)) as { input?: string; note?: string } | null
+  if (!b?.input) return c.json({ error: '冇輸入' }, 400)
+  const list = await kvGet<Rival[]>(c.env.KV, 'rivals', () => RIVALS)
+  if (list.length >= 20) return c.json({ error: '最多追蹤 20 個頻道' }, 400)
+  try {
+    const ch = await resolveChannel(b.input)
+    if (list.some((r) => r.id === ch.id)) return c.json({ error: `「${ch.name}」已經喺名單` }, 400)
+    const channels = [...list, { id: ch.id, name: ch.name, note: (b.note ?? '').slice(0, 60) }]
+    await c.env.KV.put('rivals', JSON.stringify(channels))
+    return c.json({ channels })
+  } catch (e) {
+    return c.json({ error: e instanceof Error ? e.message : String(e) }, 400)
+  }
+})
+app.delete('/cms/api/rivals-list', async (c) => {
+  const id = c.req.query('id')
+  const list = await kvGet<Rival[]>(c.env.KV, 'rivals', () => RIVALS)
+  const channels = list.filter((r) => r.id !== id || r.note === '自己')
+  await c.env.KV.put('rivals', JSON.stringify(channels))
+  return c.json({ channels })
+})
+app.get('/cms/api/board', async (c) => c.json(await kvGet<Board>(c.env.KV, 'board', seedBoard)))
+app.put('/cms/api/board', async (c) => {
+  const b = (await c.req.json().catch(() => null)) as Board | null
+  if (!b || !Array.isArray(b.items) || !Array.isArray(b.refs) || !Array.isArray(b.hooks)) return c.json({ error: '格式唔啱' }, 400)
+  const raw = JSON.stringify(b)
+  if (raw.length > 500_000) return c.json({ error: '資料太大' }, 413)
+  await c.env.KV.put('board', raw)
+  return c.json(b)
+})
+app.post('/cms/api/reel-ideas', async (c) => {
+  if (!c.env.GEMINI_API_KEY) return c.json({ error: '未設定 GEMINI_API_KEY' }, 500)
+  const b = (await c.req.json().catch(() => null)) as { what?: string; place?: string } | null
+  if (!b?.what) return c.json({ error: '講吓今日影咗咩先' }, 400)
+  try {
+    return c.json(await geminiJson(c.env.GEMINI_API_KEY, reelIdeasPrompt(b.what.slice(0, 1000), b.place?.slice(0, 100))))
+  } catch (e) {
+    return c.json({ error: String(e).slice(0, 300) }, 502)
+  }
+})
+app.post('/cms/api/trend-idea', async (c) => {
   if (!c.env.GEMINI_API_KEY) return c.json({ error: '未設定 GEMINI_API_KEY' }, 500)
   const b = (await c.req.json().catch(() => null)) as { trend?: string; news?: string[] } | null
   if (!b?.trend) return c.json({ error: '冇話題' }, 400)
@@ -195,6 +268,46 @@ app.post('/cms/dev/api/trend-idea', async (c) => {
   } catch (e) {
     return c.json({ error: String(e).slice(0, 300) }, 502)
   }
+})
+
+// /cms/tools：阿陳工具箱（網頁小程式），阿陳同 SS 都用得
+app.use('/cms/tools/*', async (c, next) => {
+  if (!isMember(c)) return c.notFound()
+  await next()
+  c.header('X-Robots-Tag', 'noindex, nofollow')
+})
+const toolBody = (id: ToolId, c: { env: Env['Bindings'] }) => {
+  switch (id) {
+    case 'reels': return <ReelStudio />
+    case 'posts': return <PostStudio />
+    case 'carousel': return <CarouselStudio frames={frames} />
+    case 'thumbs': return <ThumbStudio />
+    case 'trends': return <TrendsStudio />
+    case 'rivals': return <RivalsStudio />
+    case 'quote':
+      return (
+        <QuoteStudio
+          stats={{ youtubeSubscribers: site.stats.youtubeSubscribers, instagramFollowers: site.stats.instagramFollowers, topReelViews: site.reels[0].views, asOf: site.stats.asOf }}
+          email={site.email}
+        />
+      )
+    case 'budget': return <div class="wrap lab-wrap"><StudyBudget /></div>
+  }
+}
+app.get('/cms/tools', (c) => {
+  if (!isMember(c)) return c.notFound()
+  const b = ctx(c)
+  return c.html(<Layout meta={{ ...b, title: '阿陳工具箱', description: '', noindex: true }} bare><ToolsHome /></Layout>)
+})
+app.get('/cms/tools/:tool', (c) => {
+  const t = TOOLS.find((x) => x.id === c.req.param('tool'))
+  if (!t) return c.notFound()
+  const b = ctx(c)
+  return c.html(
+    <Layout meta={{ ...b, title: `${t.name} · 阿陳工具箱`, description: '', noindex: true }} bare>
+      <ToolsShell active={t.id}>{toolBody(t.id, c)}</ToolsShell>
+    </Layout>,
+  )
 })
 
 // 聯盟轉址。P2 會喺呢度記點擊（D1）。

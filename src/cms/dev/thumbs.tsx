@@ -3,7 +3,7 @@
 // 風格係睇晒 113 張舊縮圖（_private/thumbs/sheet*.jpg）歸納出嚟。
 import { thumbVideos } from './thumbs-data'
 
-// 樣貌參考：舊縮圖入面阿陳正面清楚嗰幾張（public/cms/dev/ref/，gitignore + Access 保護）。
+// 樣貌參考：舊縮圖入面阿陳正面清楚嗰幾張（public/cms/kit/ref/，gitignore + Access 保護）。
 // 正式版換成阿陳提供嘅乾淨相（正面、側面、全身、常穿風格）。
 export const REF_IDS = ['cw7QJqoGHPs', '6WEI1DZreZI', '9Hn97QX5heg', 'T4wP5UZbC4Q', 'yRdZnt3EcBk', '1iT3MtjUehg', 'XL9q66tDFsA', 'h6qNVAu81G8']
 
@@ -78,7 +78,7 @@ const script = `(() => {
       if (!topic) { st.textContent = '先寫影片主題'; return; }
       e.target.disabled = true; st.textContent = '諗緊…';
       try {
-        const r = await fetch('/cms/dev/api/thumb-ideas', { method: 'POST', headers: { 'content-type': 'application/json' }, body: JSON.stringify({ topic }) });
+        const r = await fetch('/cms/api/thumb-ideas', { method: 'POST', headers: { 'content-type': 'application/json' }, body: JSON.stringify({ topic }) });
         const d = await r.json(); if (!r.ok) throw new Error(d.error || r.status);
         st.textContent = '';
         $('[data-tp-ideas]').innerHTML = '';
@@ -98,7 +98,7 @@ const script = `(() => {
     }
   });
   // 自動更新：頻道 RSS 有新片就加入「全部舊縮圖」最前面
-  fetch('/cms/dev/api/rivals').then((r) => r.json()).then((d) => {
+  fetch('/cms/api/rivals').then((r) => r.json()).then((d) => {
     const me = (d.channels || []).find((c) => c.note === '自己'); if (!me) return;
     const known = new Set(D.videos.map((v) => v.id));
     const fresh = me.videos.filter((v) => !known.has(v.id));
@@ -112,8 +112,8 @@ const script = `(() => {
 
 export const ThumbStudio = () => (
   <div class="ps wrap tp" data-tp="">
-    <link rel="stylesheet" href="/cms/dev/dev.css" />
-    <link rel="stylesheet" href="/cms/dev/tools.css" />
+    <link rel="stylesheet" href="/cms/kit/dev.css" />
+    <link rel="stylesheet" href="/cms/kit/tools.css" />
     <p class="dev-flag">開發中 · 只有 SS 睇到</p>
     <h1>YouTube 縮圖 Prompt 生成器</h1>
     <p class="ps-lead">
@@ -216,8 +216,8 @@ export const ThumbStudio = () => (
       <h3>① 樣貌參考（揀 3–4 張）</h3>
       <div class="tp-grid">
         {REF_IDS.map((id) => (
-          <a href={`/cms/dev/ref/${id}.jpg`} target="_blank" rel="noopener">
-            <img src={`/cms/dev/ref/${id}.jpg`} alt="" loading="lazy" />
+          <a href={`/cms/kit/ref/${id}.jpg`} target="_blank" rel="noopener">
+            <img src={`/cms/kit/ref/${id}.jpg`} alt="" loading="lazy" />
           </a>
         ))}
       </div>

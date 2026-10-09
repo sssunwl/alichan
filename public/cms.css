@@ -93,3 +93,11 @@
 .cms-dev summary { cursor: pointer; font-weight: 900; }
 .cms-dev p { margin: 8px 0; color: var(--ink-2); font-size: 0.9rem; }
 .cms-dev a { display: inline-block; margin-right: 16px; font-weight: 700; color: var(--accent-ink); }
+
+.cms-toolbox { display: grid; grid-template-columns: auto 1fr auto; align-items: center; gap: 16px; margin: 0 0 22px; padding: 18px 22px; border-radius: var(--r); background: var(--ink); color: var(--paper); text-decoration: none; box-shadow: var(--shadow); transition: transform 0.2s var(--ease); }
+.cms-toolbox:hover { transform: translateY(-2px); }
+.cms-toolbox span { font-size: 2rem; }
+.cms-toolbox strong { display: block; font-size: 1.15rem; }
+.cms-toolbox small { color: rgba(255, 253, 248, 0.75); font-size: 0.85rem; line-height: 1.6; }
+.cms-toolbox b { color: var(--marker); white-space: nowrap; }
+@media (max-width: 560px) { .cms-toolbox { grid-template-columns: auto 1fr; } .cms-toolbox b { grid-column: 1 / -1; } }

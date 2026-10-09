@@ -1,5 +1,5 @@
 // 帖文生成器（開發中，只有 SS 睇到）
-// 揀示範片 → 即刻睇結果；或者貼字幕／上載 .srt → POST /cms/dev/api/posts → Gemini 生成
+// 揀示範片 → 即刻睇結果；或者貼字幕／上載 .srt → POST /cms/api/posts → Gemini 生成
 import { links } from '../../site.config'
 import { postSamples } from './post-samples'
 
@@ -79,7 +79,7 @@ const script = `(() => {
     btn.disabled = true;
     let n = 0; const tick = setInterval(() => (status.textContent = '生成緊…' + ++n + ' 秒（通常 20–60 秒）'), 1000);
     try {
-      const r = await fetch('/cms/dev/api/posts', { method: 'POST', headers: { 'content-type': 'application/json' }, body: JSON.stringify(body) });
+      const r = await fetch('/cms/api/posts', { method: 'POST', headers: { 'content-type': 'application/json' }, body: JSON.stringify(body) });
       const d = await r.json();
       if (!r.ok) throw new Error(d.error || r.status);
       render(d, '你貼嘅字幕');
@@ -97,7 +97,7 @@ export const PostStudio = () => {
     ({ 'StNJHl-WkBA': '東京遊學一個月', 'd5w9k--VGjA': '福岡 2 天 1 夜', KneeOM1WWvM: '大阪 CHANEL＋壽司' })[id] ?? id
   return (
     <div class="ps wrap" data-ps="">
-      <link rel="stylesheet" href="/cms/dev/dev.css" />
+      <link rel="stylesheet" href="/cms/kit/dev.css" />
       <p class="dev-flag">開發中 · 只有 SS 睇到</p>
       <h1>帖文生成器</h1>
       <p class="ps-lead">

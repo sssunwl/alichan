@@ -60,7 +60,7 @@ const script = String.raw`(() => {
 type QuoteProps = { stats: { youtubeSubscribers: string; instagramFollowers: string | null; topReelViews: string; asOf: string }; email: string }
 export const QuoteStudio = ({ stats, email }: QuoteProps) => (
   <div class="ps wrap" data-quote="">
-    <link rel="stylesheet" href="/cms/dev/dev.css" /><link rel="stylesheet" href="/cms/dev/tools.css" />
+    <link rel="stylesheet" href="/cms/kit/dev.css" /><link rel="stylesheet" href="/cms/kit/tools.css" />
     <p class="dev-flag">開發中 · 只有 SS 睇到</p><h1>報價單生成器</h1><p class="ps-lead">填返你嘅收費，揀今次合作要做嘅項目，就可以列印或者複製俾品牌。</p>
     <div class="quote-layout"><div class="quote-editor">
       <section class="ps-card"><div class="tool-toolbar"><h2>收費表</h2><button type="button" class="tool-button" data-demo="">套用示範價（只供試玩）</button><button type="button" class="tool-button" data-clear="">清除</button></div><p class="tool-error" data-demo-warning="" hidden>示範價，唔係阿陳真實報價</p><p class="tool-muted">收費表會存喺呢個瀏覽器。改收費表唔會改已加落報價單嘅項目。</p>

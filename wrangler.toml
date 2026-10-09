@@ -13,4 +13,11 @@ PREVIEW = "true"
 SITE_URL = "https://alichan.sssuni.com"
 # /cms/dev 開發中工具只俾呢啲電郵（Access app「alichan-dev」同步設定）
 DEV_EMAILS = "sssunjp@gmail.com"
+# /cms/tools 同 /cms/api 可以用嘅電郵（同 Access policy AliSS 一致）
+MEMBER_EMAILS = "ching829520@gmail.com,sssunjp@gmail.com"
 # GEMINI_API_KEY 用 wrangler secret put，唔好寫喺度
+
+# 工具箱共用資料（Reel 企劃板、熱搜關注字、對手名單）
+[[kv_namespaces]]
+binding = "KV"
+id = "fb42862dfd974a439da52b047dce0959"

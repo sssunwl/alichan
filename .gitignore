@@ -5,4 +5,4 @@ node_modules/
 .dev.vars
 .DS_Store
 .claude/
-public/cms/dev/ref/
+public/cms/kit/ref/

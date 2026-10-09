@@ -81,6 +81,12 @@ const future: { tag: string; title: string; body: string; link?: [string, string
   },
   {
     tag: '後台工具',
+    title: 'Reel 企劃板',
+    body: '影完嘢講一句「今日影咗咩」，即刻出三條 Reel idea（開頭 hook、鏡頭清單、留言關鍵字）。一撳加入排程，由靈感、待拍、剪緊到已出一眼睇晒，仲有每週出片統計同 hook 庫。',
+    link: ['/cms/tools/reels', '試用'],
+  },
+  {
+    tag: '後台工具',
     title: '輪播圖生成器',
     body: '揀一篇攻略、揀一款設計（帳單／手帳／大字報／路線，全部跟你網站風格），自動砌好一組 IG 輪播圖，相片由你條片入面揀。撳字改字、撳相換相，一鍵下載成套。',
   },
@@ -175,6 +181,14 @@ export const Cms = (p: { dev?: boolean }) => (
           <span>審稿、數據、建議、成本。要用你電郵收數字碼登入先入到，其他人睇唔到。</span>
         </div>
       </div>
+      <a class="cms-toolbox" href="/cms/tools">
+        <span>🧰</span>
+        <div>
+          <strong>阿陳工具箱</strong>
+          <small>Reel 企劃板、帖文生成器、輪播圖、縮圖 Prompt、熱門話題、同行追蹤、報價單，撳入去即刻試</small>
+        </div>
+        <b>打開 →</b>
+      </a>
       <nav class="cms-toc" aria-label="目錄">
         {toc.map(([id, label], i) => (
           <a href={`#${id}`}>
@@ -384,7 +398,7 @@ export const Cms = (p: { dev?: boolean }) => (
     <section id="future" class="cms-sec wrap">
       <p class="cms-num">09</p>
       <h2>之後可以點發展</h2>
-      <p>網站唔止係文章。下面每樣都係由你現有內容出發，揀你想要嘅，一樣一樣加。「後台工具」係只有你自己用、幫你慳時間嘅，我已經做緊示範版，整好就俾你試。</p>
+      <p>網站唔止係文章。下面每樣都係由你現有內容出發，揀你想要嘅，一樣一樣加。「後台工具」係只有你自己用、幫你慳時間嘅，示範版已經整好，<a href="/cms/tools">去工具箱試吓</a>。</p>
       <div class="future-grid">
         {future.map((f) => (
           <article class={f.link ? 'live' : ''}>

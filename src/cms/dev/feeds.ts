@@ -34,7 +34,7 @@ export const WATCH = ['日本', '東京', '大阪', '京都', '福岡', '沖繩'
 
 export type Trend = { title: string; traffic: string; pubDate: string; news: { title: string; url: string; source: string }[]; matched: string[] }
 
-export const fetchTrends = async (geo = 'HK') => {
+export const fetchTrends = async (geo = 'HK', watch: string[] = WATCH) => {
   const res = await fetch(`https://trends.google.com/trending/rss?geo=${geo}`, { headers: { 'user-agent': 'Mozilla/5.0' } })
   if (!res.ok) throw new Error(`Google Trends ${res.status}`)
   const xml = await res.text()
@@ -46,10 +46,10 @@ export const fetchTrends = async (geo = 'HK') => {
     }))
     const title = tag(it, 'title')
     const hay = [title, ...news.map((n) => n.title)].join(' ')
-    return { title, traffic: tag(it, 'ht:approx_traffic'), pubDate: tag(it, 'pubDate'), news, matched: WATCH.filter((w) => hay.includes(w)) }
+    return { title, traffic: tag(it, 'ht:approx_traffic'), pubDate: tag(it, 'pubDate'), news, matched: watch.filter((w) => hay.includes(w)) }
   })
   items.sort((a, b) => b.matched.length - a.matched.length)
-  return { fetchedAt: new Date().toISOString(), geo, items, watch: WATCH }
+  return { fetchedAt: new Date().toISOString(), geo, items, watch }
 }
 
 // ---------- 對手追蹤 ----------
@@ -94,9 +94,11 @@ const parseChannel = (xml: string): RivalVideo[] => {
   })
 }
 
-export const fetchRivals = async () => {
+export type Rival = { id: string; name: string; note: string }
+
+export const fetchRivals = async (list: Rival[] = RIVALS) => {
   const channels = await Promise.all(
-    RIVALS.map(async (c) => {
+    list.map(async (c) => {
       try {
         const res = await fetch(`https://www.youtube.com/feeds/videos.xml?channel_id=${c.id}`)
         if (!res.ok) throw new Error(`RSS ${res.status}`)
@@ -135,3 +137,23 @@ export const trendIdeaPrompt = (trend: string, news: string[]) => `你係香港 
 
 諗 3 個阿陳可以拍嘅題目。如果呢個熱搜同佢題材完全拉唔上關係，就老實講「唔建議跟」並只俾 1 個最勉強嘅角度。唔好捏造事實。
 只輸出 JSON：{"ideas":[{"title":"題目（廣東話，有數字或鉤）","angle":"點解觀眾會睇＋點樣扣返阿陳風格（1–2 句）","platform":"IG Reel 或 YouTube 或 Threads"}]}`
+
+// 將「頻道連結／@handle／UC ID」變成 channel id + 名
+export const resolveChannel = async (input: string): Promise<{ id: string; name: string }> => {
+  const raw = input.trim()
+  const direct = raw.match(/(UC[\w-]{22})/)
+  let url = ''
+  if (direct) url = `https://www.youtube.com/channel/${direct[1]}`
+  else {
+    const handle = raw.match(/@([\w.\-]{3,40})/)?.[1] ?? (/^[\w.\-]{3,40}$/.test(raw) ? raw : '')
+    if (!handle) throw new Error('睇唔明呢個連結，試吓貼 youtube.com/@xxx 或者 UC 開頭嘅 ID')
+    url = `https://www.youtube.com/@${handle}`
+  }
+  const res = await fetch(url, { headers: { 'user-agent': 'Mozilla/5.0 (Macintosh) AppleWebKit/537.36 Chrome/130 Safari/537.36', 'accept-language': 'zh-HK' } })
+  if (!res.ok) throw new Error(`搵唔到頻道（${res.status}）`)
+  const html = await res.text()
+  const id = direct?.[1] ?? html.match(/"externalId":"(UC[\w-]{22})"/)?.[1] ?? html.match(/<link rel="canonical" href="https:\/\/www\.youtube\.com\/channel\/(UC[\w-]{22})"/)?.[1]
+  const name = decode(html.match(/<meta property="og:title" content="([^"]*)"/)?.[1] ?? '')
+  if (!id) throw new Error('搵唔到頻道 ID')
+  return { id, name: name || id }
+}
